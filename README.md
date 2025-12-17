@@ -9,7 +9,7 @@
 
 ## Inhalt
 
-1. Inhalt  
+1. Install  
 2. Einleitung  
    2.1 Systemidee  
    2.1.1 Die wichtigsten Funktionen  
@@ -25,6 +25,11 @@
    5.2 Anforderungskatalog  
 
 ---
+## 1. Install
+Clone the repo with ``git clone https://github.com/The12Forest/TTTAI.git``
+Then cd into it with ``cd TTTAI``
+Install the needed Packages with ``npm install express path fs http https``
+Now finaly start the Server with ``node ./init.js``
 
 ## 2. Einleitung
 
