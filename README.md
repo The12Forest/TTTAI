@@ -26,11 +26,28 @@
 
 ---
 ## 1. Install
-Clone the repo with ```bash git clone https://github.com/The12Forest/TTTAI.git```
-Then cd into it with ```bash cd TTTAI```
-Install the needed Packages with ```bash npm install express path fs http https```
-Now finaly start the Server with ```bash node ./init.js```
 
+Clone the repo with:
+```powershell
+git clone https://github.com/The12Forest/TTTAI.git
+```
+
+Then cd into it with:
+```powershell
+cd TTTAI
+```
+
+Install the needed Packages with:
+```powershell
+npm install express path fs http https
+```
+
+Now finally start the Server with:
+```powershell
+node ./init.js
+```
+
+---
 ## 2. Einleitung
 
 ### 2.1 Systemidee
