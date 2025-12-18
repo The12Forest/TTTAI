@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const baseurl = "http://127.0.0.1";
 
 //Router Laden
-// import { router as gamingtimeRouter } from "./Backend/routes/time/index.js";
+import { router as userRouter } from "./Backend/routes/user/index.js";
 // import { router as tasksRouter } from "./Backend/routes/tasks/index.js";
 // import { router as userRouter } from "./Backend/routes/user/index.js";
 // import { router as adminRouter } from "./Backend/routes/storage/index.js";
@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 //Ports Definieren
 const httpPort = 80;
-const httpsPort = 10108;
+const httpsPort = 443;
 
 // SSL-Zertifikate laden
 // const privateKey = fs.readFileSync("./Cert/key.pem", "utf8");
@@ -51,7 +51,7 @@ app.use("/user", express.static("./Frontend/user"));
 app.use("/admin", express.static("./Frontend/admin_login"));
 
 // Routerroutes
-// app.use("/api/time", gamingtimeRouter);
+app.use("/api/user", userRouter);
 // app.use("/api/task", tasksRouter);
 // app.use("/api/user", userRouter);
 // app.use("/api/storage", adminRouter);
@@ -109,7 +109,7 @@ console.log = function (message, ...optionalParams) {
   ).write(Time() + message + " " + optionalParams.join(" ") + "\n");
   originalLog(Time() + message, ...optionalParams);
 };
-
+console.clear();
 console.log("Server Startup!");
 // fetch(baseurl + "/api/storage/load");
 

@@ -1,46 +1,54 @@
 let id = 0
 let xturn = true
-
+let round = 0
 for (let Y = 1; Y <= 3; Y++) {
     for (let X = 1; X <= 3; X++) {
         document.getElementById("card_" + X + "-" + Y).addEventListener("click", (e) => {clicked(e)});
         document.getElementById("card_" + X + "-" + Y).dataset.X = X;
         document.getElementById("card_" + X + "-" + Y).dataset.Y = Y;
-        document.getElementById("card_" + X + "-" + Y).textContent = X + "-" + Y;
+        // document.getElementById("card_" + X + "-" + Y).classList.add("active");
+
+        // document.getElementById("card_" + X + "-" + Y).textContent = X + "-" + Y;
     }
 }
 
 function clicked(e) {
-    // if (e.target.classList.contains("card")) console.log("clicked");
-    // e.target.remove()
-    // e.target.style.display = "none";
     let target = e.target
-    // if (target.textContent != "") {return;}
+    if (target.textContent != "") {return;}
     if (xturn) {
         target.textContent = "X";
         xturn = false
+        round++
     } else {
         target.textContent = "O";
         xturn = true;
+        round++;
     }
+    
     console.log(target.dataset.X + "-" + target.dataset.Y)
-    check(target.dataset.X, target.dataset.Y);
+    let winner = check(target.dataset.X, target.dataset.Y);
+    if (winner.wins) {
+        banner("asdf");
+        document.getElementById("banner").textContent = "Winner is: " + target.textContent
+    }
+
+    
 }
 
 function check(X, Y) {
-    // Determine current player (xturn toggled after move, so check opposite)
+    
     const currentPlayer = xturn ? "O" : "X";
     
-    // Directions to check: [deltaX, deltaY]
+    // [deltaX, deltaY]
     const directions = [
-        [1, 0],   // horizontal
-        [0, 1],   // vertical
-        [1, 1],   // diagonal down-right
-        [1, -1]   // diagonal up-right
+        [1, 0],
+        [0, 1],
+        [1, 1],
+        [1, -1]
     ];
     
     for (let [dx, dy] of directions) {
-        let count = 1; // Count the current piece
+        let count = 1; 
         
         // Check in positive direction
         let x = parseInt(X) + dx;
@@ -72,10 +80,14 @@ function check(X, Y) {
         
         if (count >= 3) {
             console.log(currentPlayer + " wins!");
-            return true;
+            return {"wins": true, "Player": currentPlayer};
         }
     }
     
-    return false;
+    return {"wins": false, "Player": currentPlayer};
+}
+
+function banner(winner) {
+    document.getElementById("banner").classList.toggle("show");
 }
 

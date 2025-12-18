@@ -1,9 +1,11 @@
 :root {
-    --card: 8vw;
+    --card: 150px;
     --card-width: var(--card);
-    --card-heigt: var(--card);
-    --card-border: 2px;
-    --card-gap: 2px
+    --card-height: var(--card);
+    --card-border: 4px;
+    --card-gap: 0px;
+    --banner-blur: 33px;
+    --border-color: hsl(0, 0%, 100%);
 }
 
 body {
@@ -13,23 +15,95 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
+    background-color: #000;
 }
 
 .site {
-    /* max-width: 700px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card {
-    height: var(--card-heigt);
+    height: var(--card-height);
     width: var(--card-width);
-    background-color: blue;
-    text-align: center;
-    border: var(--card-border) black solid;
-}
-.cards {
+
     display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #000;
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+/* Add right border to columns 1 and 2 */
+.card_1, .card_4, .card_7 {
+    border-right: var(--border-color) var(--card-border) solid;
+}
+
+.card_2, .card_5, .card_8 {
+    border-right: var(--border-color) var(--card-border) solid;
+}
+
+/* Add bottom border to rows 1 and 2 */
+.card_1, .card_2, .card_3 {
+    border-bottom: var(--border-color) var(--card-border) solid;
+}
+
+.card_4, .card_5, .card_6 {
+    border-bottom: var(--border-color) var(--card-border) solid;
+}
+
+.cards {
+    display: grid;
     gap: var(--card-gap);
-    flex-wrap: wrap;
-    max-width: calc((3 * var(--card-width)) + (2 * var(--card-gap)) + (3 * 2 * var(--card-border)));
-    /* max-width: 160px; */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+        "a b c"
+        "d e f"
+        "g h i";
+    padding: 0;
+}
+
+.card_1 { grid-area: a; }
+.card_2 { grid-area: b; }
+.card_3 { grid-area: c; }
+.card_4 { grid-area: d; }
+.card_5 { grid-area: e; }
+.card_6 { grid-area: f; }
+.card_7 { grid-area: g; }
+.card_8 { grid-area: h; }
+.card_9 { grid-area: i; }
+
+
+.Banner {
+    z-index: 2;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: backdrop-filter linear 1000ms, background linear 1000ms;
+
+    visibility: hidden;
+
+    /* background-color: red; */
+}
+
+.Banner.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: visible;
+
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(var(--banner-blur));
+    -webkit-backdrop-filter: blur(var(--banner-blur));
 }
