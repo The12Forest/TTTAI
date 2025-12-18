@@ -1,0 +1,20 @@
+{
+  "name": "tttai",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "The12Forest",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "synaptic": "^1.1.4"
+  }
+}

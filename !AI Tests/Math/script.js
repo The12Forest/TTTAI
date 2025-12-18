@@ -1,4 +1,4 @@
-const net = new brain.NeuralNetwork({
+const net = new brain.NeuralNetworkGPU({
   hiddenLayers: [8,8,8],
 });
 

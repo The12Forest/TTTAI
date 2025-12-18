@@ -1,0 +1,35 @@
+:root {
+    --card: 8vw;
+    --card-width: var(--card);
+    --card-heigt: var(--card);
+    --card-border: 2px;
+    --card-gap: 2px
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.site {
+    /* max-width: 700px; */
+}
+
+.card {
+    height: var(--card-heigt);
+    width: var(--card-width);
+    background-color: blue;
+    text-align: center;
+    border: var(--card-border) black solid;
+}
+.cards {
+    display: flex;
+    gap: var(--card-gap);
+    flex-wrap: wrap;
+    max-width: calc((3 * var(--card-width)) + (2 * var(--card-gap)) + (3 * 2 * var(--card-border)));
+    /* max-width: 160px; */
+}
