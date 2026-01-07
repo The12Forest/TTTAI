@@ -1,0 +1,62 @@
+:root {
+    --bg: #181a27;
+    --bglight: #252738;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg);
+}
+
+.site {
+    max-width: 400px;
+    min-width: 250px;
+    background-color: var(--bglight);
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.site p, .site p a{ 
+    color: white;
+    text-decoration: none;
+}
+.site p a:hover{
+    color: rgb(74, 67, 255);
+}
+
+
+#form {
+    width: 100%;
+}
+
+h1 {
+    color: white;
+}
+
+#form input, #form label{
+    display: block;
+    margin: 15px 0;
+    color: white;
+    width: 100%;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    border-radius:3px;
+    border: none;
+}
+
+#form input{
+    width: calc(100% - 2*3px);
+    color: black;
+    font-size: 1rem;
+    padding: 3px;
+}
+
+#form input[type=submit] {
+    text-align: center;
+}

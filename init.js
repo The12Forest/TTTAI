@@ -8,7 +8,7 @@ const baseurl = "http://127.0.0.1";
 
 //Router Laden
 import { router as userRouter } from "./Backend/routes/user/index.js";
-// import { router as tasksRouter } from "./Backend/routes/tasks/index.js";
+import { router as mainRouter } from "./Backend/routes/main/index.js";
 // import { router as userRouter } from "./Backend/routes/user/index.js";
 // import { router as adminRouter } from "./Backend/routes/storage/index.js";
 // import { router as loginRouter } from "./Backend/routes/login/index.js";
@@ -30,40 +30,30 @@ const httpsPort = 443;
 
 // Custom File Mappings
 // app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/main/main.html");
-// });
-// app.get("/user", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/user/main.html");
-// });
-// app.get("/admin", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/admin_login/main.html");
-// });
-// app.get("/admin-control/style.css", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/admin/style.css");
-// });
-// app.get("/admin-control/script.js", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/admin/script.js");
+//   res.sendFile(__dirname + "/Frontend/home/index.html");
 // });
 
 // Foldermapings
-app.use("/", express.static("./Frontend/main"));
-app.use("/user", express.static("./Frontend/user"));
-app.use("/admin", express.static("./Frontend/admin_login"));
+app.use("/", express.static("./Frontend/AIvsHuman"));
+app.use("/login", express.static("./Frontend/login"));
+app.use("/register", express.static("./Frontend/register"));
+app.use("/play/ai", express.static("./Frontend/AIvsHuman"));
+app.use("/play/vs", express.static("./Frontend/admin_login"));
 
 // Routerroutes
 app.use("/api/user", userRouter);
-// app.use("/api/task", tasksRouter);
+app.use("/api/main", mainRouter);
 // app.use("/api/user", userRouter);
 // app.use("/api/storage", adminRouter);
 // app.use("/api/login", loginRouter);
 // app.use("/api/shutdown", shutdownRouter);
 
-app.get("/Main", (req, res) => {
-  res.redirect("/");
-});
-app.use("", (req, res) => {
-  res.redirect("/");
-});
+// app.get("/Main", (req, res) => {
+//   res.redirect("/");
+// });
+// app.use("", (req, res) => {
+//   res.redirect("/");
+// });
 
 //HTTP-Server
 http.createServer(app).listen(httpPort, () => {
@@ -109,9 +99,10 @@ console.log = function (message, ...optionalParams) {
   ).write(Time() + message + " " + optionalParams.join(" ") + "\n");
   originalLog(Time() + message, ...optionalParams);
 };
+
 console.clear();
 console.log("Server Startup!");
-// fetch(baseurl + "/api/storage/load");
+fetch(baseurl + "/api/main/load");
 
 export default app;
 

@@ -192,12 +192,16 @@ print("Building model...")
 model = load_or_create_model()
 
 # Training phases
-num_phases = 30
-games_per_phase = 50
+num_phases = 100*100*100
+games_per_phase = 60
 
 for phase in range(num_phases):
     print(f"\n=== Phase {phase + 1}/{num_phases} ===")
-    
+    if (num_phases == 100):
+        games_per_phase += games_per_phase
+    if (num_phases == 1000):
+        games_per_phase += games_per_phase*2
+
     # Train on existing data
     print(f"Training on {len(X_data)} samples...")
     model = train_model(model, X_data, Y_data, epochs=30)

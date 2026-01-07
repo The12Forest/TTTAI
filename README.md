@@ -41,7 +41,7 @@ Install the needed Packages with:
 ```powershell
 npm install
 ```
-if it dose not work use ``npm install express fs http https path synaptic``
+if it dose not work use ``npm install express fs http https path '@tensorflow/tfjs-node'``
 
 Now finally start the Server with:
 ```powershell
