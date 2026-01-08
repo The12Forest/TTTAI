@@ -270,12 +270,13 @@ for phase in range(num_phases):
     print(f"Win rate: {wins}/{games_per_phase} ({100*wins/games_per_phase:.1f}%)")
     
     # Combine data
-    if new_X:
-        X_new = np.vstack(new_X)
-        Y_new = np.vstack(new_Y)
-        X_data = np.vstack([X_data, X_new])
-        Y_data = np.vstack([Y_data, Y_new])
-        print(f"Dataset size: {len(X_data)}")
+    if (wins/games_per_phase > 0.6):
+        if new_X:
+            X_new = np.vstack(new_X)
+            Y_new = np.vstack(new_Y)
+            X_data = np.vstack([X_data, X_new])
+            Y_data = np.vstack([Y_data, Y_new])
+            print(f"Dataset size: {len(X_data)}")
     
     # Save model
     model.save(MODEL_PATH)
