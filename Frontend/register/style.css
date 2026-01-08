@@ -30,7 +30,6 @@ body {
     color: rgb(74, 67, 255);
 }
 
-
 #form {
     width: 100%;
 }
@@ -55,8 +54,38 @@ h1 {
     color: black;
     font-size: 1rem;
     padding: 3px;
+    transition: outline 0.1s;
 }
 
 #form input[type=submit] {
     text-align: center;
+    margin-bottom: 0;
+}
+
+/* #form input[type=checkbox]:focus {
+    outline: 0;
+} */
+
+#form input[type=text]:focus, #form input[type=password]:focus {
+    outline: 2px solid white;
+}
+
+#form #ssignl, #form #ssign {
+    display: inline-block;
+    /* margin: 0; */
+    padding: 15px 0;
+    width: auto;
+}
+
+#form #ssignl {
+    width: calc(100% - 18px);
+}
+
+h1, p, h2, label {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "GRAD" 0;
 }

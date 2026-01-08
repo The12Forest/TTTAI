@@ -24,9 +24,9 @@ const httpPort = 80;
 const httpsPort = 443;
 
 // SSL-Zertifikate laden
-// const privateKey = fs.readFileSync("./Cert/key.pem", "utf8");
-// const certificate = fs.readFileSync("./Cert/cert.pem", "utf8");
-// const credentials = { key: privateKey, cert: certificate };
+const privateKey = fs.readFileSync("./Cert/key.pem", "utf8");
+const certificate = fs.readFileSync("./Cert/cert.pem", "utf8");
+const credentials = { key: privateKey, cert: certificate };
 
 // Custom File Mappings
 // app.get("/", (req, res) => {
@@ -61,9 +61,9 @@ http.createServer(app).listen(httpPort, () => {
 });
 
 // HTTPS-Server
-// https.createServer(credentials, app).listen(httpsPort, () => {
-//   console.log(`HTTPS server running on port ${httpsPort}`);
-// });
+https.createServer(credentials, app).listen(httpsPort, () => {
+  console.log(`HTTPS server running on port ${httpsPort}`);
+});
 
 // Log
 function Time() {
@@ -82,8 +82,8 @@ function Time() {
 
 const originalLog = console.log;
 
-if (!fs.existsSync("./LOG")) {
-  fs.mkdirSync("./LOG", { recursive: true });
+if (!fs.existsSync(__dirname + "/LOG")) {
+  fs.mkdirSync(__dirname + "/LOG", { recursive: true });
 }
 
 console.log = function (message, ...optionalParams) {

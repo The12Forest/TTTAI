@@ -63,20 +63,29 @@ router.get("/login/:username/:passwd", (req, res) => {
 });
 
 router.get("/register/:username/:passwd", (req, res) => {
-    let UuserID = passwords.indexOf(req.params.username)
-    let PuserID = passwords.indexOf(req.params.passwd)
-    if (UuserID === -1) {
-        if (PuserID === -1) {
-            usernames.push(req.params.username)
-            passwords.push(req.params.passwd)
-            res.json({"Okay": true, "Reason": "User created successfully!"})
+    const username = req.params.username;
+    const passwd = req.params.passwd;
+
+    let userIndex = usernames.indexOf(username);
+    let passIndex = passwords.indexOf(passwd);
+
+    if (userIndex === -1) {
+        if (passIndex === -1) {
+            usernames.push(username);
+            passwords.push(passwd);
+
+            console.log(logprefix + "User '" + username + "' registered successfully.");
+            res.json({ Okay: true, Reason: "User created successfully!" });
         } else {
-            res.json({"Okay": false, "Reason": "Useralready exists!"})
+            console.log(logprefix + "Registration failed for '" + username + "' - password already in use.");
+            res.json({ Okay: false, Reason: "Password already in use!" });
         }
     } else {
-        res.json({"Okay": false, "Reason": "User already exists!"})
+        console.log(logprefix + "Registration failed - user '" + username + "' already exists.");
+        res.json({ Okay: false, Reason: "User already exists!" });
     }
 });
+
 
 router.get("/delete/:username/:passwd", (req, res) => {
     let UuserID = passwords.indexOf(req.params.username)
