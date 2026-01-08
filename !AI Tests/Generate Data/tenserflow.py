@@ -191,8 +191,51 @@ X_data, Y_data = generate_training_data(200)
 print("Building model...")
 model = load_or_create_model()
 
+while True:
+    new_X = []
+    new_Y = []
+    wins = 0
+
+    for i in range(300):
+        states, moves, won = play_game(model, epsilon=0.5)
+        if len(states) > 0:
+            new_X.append(states)
+            new_Y.append(moves)
+            if won:
+                wins += 1
+        if (i + 1) % 10 == 0:
+            print(f"  Played {i + 1} games, wins: {wins}")
+        
+        if (i > 5):
+            print(f"Win rate: {wins}/{i+1} ({100*wins/(i+1):.1f}%)")
+            if (wins / (i+1)) < 0.6:
+                break
+
+    
+    if (wins/300 > 0.6):
+        break
+
+# Combine data
+if new_X:
+    X_new = np.vstack(new_X)
+    Y_new = np.vstack(new_Y)
+    X_data = np.vstack(X_new)
+    Y_data = np.vstack(Y_new)
+    print(f"Dataset size: {len(X_data)}")
+
+
+
+
+
+
+
+
+
+
+
+
 # Training phases
-num_phases = 100*100*100
+num_phases = 300
 games_per_phase = 60
 
 for phase in range(num_phases):
