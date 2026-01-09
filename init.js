@@ -37,8 +37,10 @@ const credentials = { key: privateKey, cert: certificate };
 app.use("/", express.static("./Frontend/AIvsHuman"));
 app.use("/login", express.static("./Frontend/login"));
 app.use("/register", express.static("./Frontend/register"));
+app.use("/panel", express.static("./Frontend/panel"));
 app.use("/play/ai", express.static("./Frontend/AIvsHuman"));
-app.use("/play/vs", express.static("./Frontend/admin_login"));
+app.use("/play/vs", express.static("./Frontend/HumanVsHuman"));
+app.use("/log", express.static("./LOG"));
 
 // Routerroutes
 app.use("/api/user", userRouter);
@@ -82,8 +84,8 @@ function Time() {
 
 const originalLog = console.log;
 
-if (!fs.existsSync(__dirname + "/LOG")) {
-  fs.mkdirSync(__dirname + "/LOG", { recursive: true });
+if (!fs.existsSync("./LOG")) {
+  fs.mkdirSync("./LOG", { recursive: true });
 }
 
 console.log = function (message, ...optionalParams) {

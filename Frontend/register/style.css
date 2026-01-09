@@ -1,6 +1,12 @@
 :root {
     --bg: #181a27;
     --bglight: #252738;
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "GRAD" 0;
 }
 
 body {
@@ -26,16 +32,15 @@ body {
     color: white;
     text-decoration: none;
 }
+.site p a {
+    color: grey;
+}
 .site p a:hover{
     color: rgb(74, 67, 255);
 }
 
 #form {
     width: 100%;
-}
-
-h1 {
-    color: white;
 }
 
 #form input, #form label{
@@ -78,14 +83,10 @@ h1 {
 }
 
 #form #ssignl {
-    width: calc(100% - 18px);
+    width: calc(100% - 100px);
 }
 
-h1, p, h2, label {
-  font-family: "Google Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-variation-settings:
-    "GRAD" 0;
+#errors {
+    color: red;
+    font-size: 1.35rem;
 }

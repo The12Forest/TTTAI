@@ -1,6 +1,12 @@
 :root {
     --bg: #181a27;
     --bglight: #252738;
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "GRAD" 0;
 }
 
 body {
@@ -26,12 +32,16 @@ body {
     color: white;
     text-decoration: none;
 }
+.site p a {
+    color: grey;
+}
 .site p a:hover{
     color: rgb(74, 67, 255);
 }
 
 #form {
     width: 100%;
+    line-height: 20px;
 }
 
 h1 {
@@ -72,20 +82,16 @@ h1 {
 
 #form #ssignl, #form #ssign {
     display: inline-block;
-    /* margin: 0; */
-    padding: 15px 0;
+    /* margin: 20px 0; */
+    /* padding: 20px 0; */
     width: auto;
 }
 
 #form #ssignl {
-    width: calc(100% - 18px);
+    width: calc(100% - 100px);
 }
 
-h1, p, h2, label {
-  font-family: "Google Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  font-variation-settings:
-    "GRAD" 0;
+#errors {
+    color: red;
+    font-size: 1.35rem;
 }

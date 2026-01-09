@@ -1,4 +1,4 @@
-let baseurl = "https://localhost/api"
+let baseurl = "https://10.10.20.154/api"
 
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
@@ -15,7 +15,8 @@ document.getElementById("form").addEventListener("submit", async (e) => {
     const password = document.getElementById("password").value;
 
     if (!username || !password) {
-        alert("Please enter username and password");
+        // alert("Please enter username and password");
+        document.getElementById("errors").innerText = "Please enter username and password!"
         return;
     }
 
@@ -25,8 +26,6 @@ document.getElementById("form").addEventListener("submit", async (e) => {
         .then((response) => response.json())
         .then((json) => {
             if (json.Okay) {
-                alert("Login successful!");
-
                 let expires
                 if (document.getElementById("ssign").checked) {
                     let date = new Date();
@@ -42,7 +41,8 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
                 window.location.href = "/panel";
             } else {
-                alert("Login failed: " + json.Reason);
+                // alert("Login failed: " + json.Reason);
+                document.getElementById("errors").innerText = "Error: " + json.Reason
             }
         })
         .catch((error) => {

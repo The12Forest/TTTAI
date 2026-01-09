@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2-Spieler Testspiel</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>2-Spieler Testspiel</h1>
+    <div id="status">Verbindung wird hergestellt...</div>
+    <div id="game" style="display:none;">
+        <button id="btnMove">Punkt machen!</button>
+        <h2>Scores:</h2>
+        <div id="scores"></div>
+    </div>
+
+    <script>
+        const socket = io("http://localhost:3000");
+        let roomId = null;
+
+        const statusDiv = document.getElementById("status");
+        const gameDiv = document.getElementById("game");
+        const scoresDiv = document.getElementById("scores");
+        const btnMove = document.getElementById("btnMove");
+
+        socket.on("waitingForOpponent", () => {
+            statusDiv.textContent = "Warte auf Gegner...";
+        });
+
+        socket.on("startGame", ({ room, players, scores }) => {
+            statusDiv.style.display = "none";
+            gameDiv.style.display = "block";
+            roomId = room;
+            updateScores(scores);
+        });
+
+        socket.on("updateScores", (scores) => {
+            updateScores(scores);
+        });
+
+        socket.on("playerDisconnected", (playerId) => {
+            statusDiv.style.display = "block";
+            statusDiv.textContent = "Gegner hat das Spiel verlassen!";
+            gameDiv.style.display = "none";
+        });
+
+        btnMove.addEventListener("click", () => {
+            if (roomId) socket.emit("playerMove", { room: roomId });
+        });
+
+        function updateScores(scores) {
+            scoresDiv.innerHTML = Object.entries(scores)
+                .map(([id, score]) => `Spieler ${id.substring(0, 4)}: ${score}`)
+                .join("<br>");
+        }
+    </script>
+
+</body>
+
+</html>

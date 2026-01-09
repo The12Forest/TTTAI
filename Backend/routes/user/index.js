@@ -82,7 +82,7 @@ router.get("/register/:username/:passwd", (req, res) => {
         }
     } else {
         console.log(logprefix + "Registration failed - user '" + username + "' already exists.");
-        res.json({ Okay: false, Reason: "User already exists!" });
+        res.status(100).json({ Okay: false, Reason: "User already exists!" });
     }
 });
 
