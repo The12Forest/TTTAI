@@ -38,13 +38,13 @@ class CheckpointManager:
         if not all(os.path.exists(p) for p in [self.model_path, self.memory_path, self.metadata_path]):
             return None, None, None
         try:
-            model = tf.keras.models.load_model(self.model_path)
+            model = tf.keras.models.load_model(self.model_path, custom_objects={'Huber': tf.keras.losses.Huber})
             with open(self.memory_path, 'r') as f:
                 mem_data = json.load(f)
             memory = deque([tuple(np.array(m["state"]) if isinstance(m["state"], list) else m["state"],
                                    m["action"], m["reward"],
                                    np.array(m["next_state"]) if isinstance(m["next_state"], list) else m["next_state"],
-                                   m["done"]) for m in mem_data], maxlen=2000)
+                                   m["done"]) for m in mem_data], maxlen=6000)
             with open(self.metadata_path, 'r') as f:
                 agent_state = json.load(f)
             return model, memory, agent_state
@@ -91,29 +91,34 @@ class DQNAgent:
         self.epsilon = 1.0 if checkpoint_state is None else checkpoint_state.get("epsilon", 1.0)
         self.epsilon_min = 0.01
         self.epsilon_decay = 0.9985
-        self.learning_rate = 0.0005
+        self.learning_rate = 0.0001
         self.loss_history = []
+        self.update_counter = 0 if checkpoint_state is None else checkpoint_state.get("update_counter", 0)
+        self.target_update_frequency = 500
         
         if checkpoint_model is not None:
             self.model = checkpoint_model
+            self.target_model = tf.keras.models.clone_model(checkpoint_model)
         else:
             self.model = self._build_model()
+            self.target_model = tf.keras.models.clone_model(self.model)
 
     def _build_model(self):
-        """Deeper network for better learning"""
+        """Stable network with Huber loss and gradient clipping"""
         model = tf.keras.Sequential([
             layers.Input(shape=(9,)),
-            layers.Dense(256, activation='relu'),
-            layers.BatchNormalization(),
-            layers.Dropout(0.2),
-            layers.Dense(256, activation='relu'),
-            layers.BatchNormalization(),
-            layers.Dropout(0.2),
             layers.Dense(128, activation='relu'),
+            layers.BatchNormalization(),
+            layers.Dense(128, activation='relu'),
+            layers.BatchNormalization(),
+            layers.Dense(64, activation='relu'),
             layers.BatchNormalization(),
             layers.Dense(9, activation='linear')
         ])
-        model.compile(loss='mse', optimizer=tf.keras.optimizers.Adam(learning_rate=self.learning_rate))
+        model.compile(
+            loss=tf.keras.losses.Huber(delta=1.0),
+            optimizer=tf.keras.optimizers.Adam(learning_rate=self.learning_rate, clipvalue=1.0)
+        )
         return model
 
     def act(self, state, available_moves, training=True):
@@ -134,14 +139,28 @@ class DQNAgent:
         states = np.array([m[0] for m in minibatch])
         next_states = np.array([m[3] for m in minibatch])
         targets = self.model.predict(states, verbose=0)
-        next_q_values = self.model.predict(next_states, verbose=0)
+        
+        # Double DQN: Use target network for Q-value estimation
+        next_q_values_main = self.model.predict(next_states, verbose=0)
+        next_q_values_target = self.target_model.predict(next_states, verbose=0)
         
         for i, (state, action, reward, next_state, done) in enumerate(minibatch):
-            targets[i][action] = reward if done else reward + self.gamma * np.max(next_q_values[i])
+            if done:
+                targets[i][action] = reward
+            else:
+                best_action = np.argmax(next_q_values_main[i])
+                max_q_value = next_q_values_target[i][best_action]
+                targets[i][action] = reward + self.gamma * max_q_value
+        
+        targets = np.clip(targets, -1, 1)
         
         history = self.model.fit(states, targets, epochs=1, verbose=0, batch_size=32)
         loss = history.history['loss'][0]
         self.loss_history.append(loss)
+        
+        self.update_counter += 1
+        if self.update_counter % self.target_update_frequency == 0:
+            self.target_model.set_weights(self.model.get_weights())
         
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
@@ -152,6 +171,7 @@ class DQNAgent:
         """Get agent state for checkpointing"""
         return {
             "epsilon": float(self.epsilon),
+            "update_counter": int(self.update_counter),
             "loss_history": self.loss_history[-100:] if len(self.loss_history) > 100 else self.loss_history
         }
 
