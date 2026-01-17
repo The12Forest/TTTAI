@@ -41,10 +41,10 @@ class CheckpointManager:
             model = tf.keras.models.load_model(self.model_path, custom_objects={'Huber': tf.keras.losses.Huber})
             with open(self.memory_path, 'r') as f:
                 mem_data = json.load(f)
-            memory = deque([tuple(np.array(m["state"]) if isinstance(m["state"], list) else m["state"],
-                                   m["action"], m["reward"],
-                                   np.array(m["next_state"]) if isinstance(m["next_state"], list) else m["next_state"],
-                                   m["done"]) for m in mem_data], maxlen=6000)
+            memory = deque([(np.array(m["state"]) if isinstance(m["state"], list) else m["state"],
+                             m["action"], m["reward"],
+                             np.array(m["next_state"]) if isinstance(m["next_state"], list) else m["next_state"],
+                             m["done"]) for m in mem_data], maxlen=6000)
             with open(self.metadata_path, 'r') as f:
                 agent_state = json.load(f)
             return model, memory, agent_state
