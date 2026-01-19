@@ -9,7 +9,7 @@ const baseurl = "http://127.0.0.1";
 //Router Laden
 import { router as userRouter } from "./Backend/routes/user/index.js";
 import { router as mainRouter } from "./Backend/routes/main/index.js";
-// import { router as userRouter } from "./Backend/routes/user/index.js";
+import { router as aiRouter } from "./Backend/routes/ai/index.js";
 // import { router as adminRouter } from "./Backend/routes/storage/index.js";
 // import { router as loginRouter } from "./Backend/routes/login/index.js";
 // import { router as shutdownRouter } from "./Backend/routes/shutdown/index.js";
@@ -18,6 +18,10 @@ import { router as mainRouter } from "./Backend/routes/main/index.js";
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //Ports Definieren
 const httpPort = 80;
@@ -45,6 +49,7 @@ app.use("/log", express.static("./LOG"));
 // Routerroutes
 app.use("/api/user", userRouter);
 app.use("/api/main", mainRouter);
+app.use("/api/ai", aiRouter);
 // app.use("/api/user", userRouter);
 // app.use("/api/storage", adminRouter);
 // app.use("/api/login", loginRouter);

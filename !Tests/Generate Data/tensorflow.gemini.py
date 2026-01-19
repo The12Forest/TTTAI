@@ -6,6 +6,7 @@ import json
 import os
 import signal
 import sys
+import gc
 from collections import deque
 from datetime import datetime
 
@@ -158,6 +159,9 @@ class DQNAgent:
         loss = history.history['loss'][0]
         self.loss_history.append(loss)
         
+        # Cleanup to prevent memory leaks
+        del states, next_states, targets, next_q_values_main, next_q_values_target, minibatch, history
+        
         self.update_counter += 1
         if self.update_counter % self.target_update_frequency == 0:
             self.target_model.set_weights(self.model.get_weights())
@@ -172,7 +176,7 @@ class DQNAgent:
         return {
             "epsilon": float(self.epsilon),
             "update_counter": int(self.update_counter),
-            "loss_history": self.loss_history[-100:] if len(self.loss_history) > 100 else self.loss_history
+            "loss_history": self.loss_history[-20:] if len(self.loss_history) > 20 else self.loss_history
         }
 
 # --- 3. THE EVALUATOR ---
@@ -282,6 +286,11 @@ def main():
                     loss = agent.replay(batch_size)
                     episode_loss += loss
                     training_steps += 1
+            
+            # Periodic garbage collection
+            if e % 100 == 0:
+                gc.collect()
+                tf.keras.backend.clear_session()
             
             # Evaluate periodically
             if e % eval_every == 0:
