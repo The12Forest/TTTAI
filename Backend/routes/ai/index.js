@@ -1,116 +1,122 @@
+import * as tf from '@tensorflow/tfjs'
 import express from "express";
-import * as tf from "@tensorflow/tfjs";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
-
+import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+const logprefix = "AIRouter:        ";
 let model = null;
-let modelReady = false;
 
-// Load the trained model on startup
+// try {
+//     if (!model) {
+//         // Load via HTTP URL (adjust port as needed)
+//         model = await tf.loadLayersModel('http://localhost:80/api/ai/models/model.json');
+//         console.log(logprefix + 'Model loaded successfully!');
+//     }
+// } catch (error) {
+//     console.error(logprefix + 'Error loading model:', error.message);
+// }
+
+
+// async function loadModel() {
+//     try {
+//         if (!model) {
+//             const modelUrl = `http://localhost/api/ai/models/model.json`;
+//             console.log(logprefix + 'Loading model from:', modelUrl);
+//             model = await tf.loadLayersModel(modelUrl);
+//             console.log(logprefix + 'Model loaded successfully!');
+//             model.summary();
+//         }
+//         return model;
+//     } catch (error) {
+//         console.error(logprefix + 'Error loading model:', error.message);
+//         throw error;
+//     }
+// }
+
 async function loadModel() {
     try {
-        const modelsDir = path.join(__dirname, 'models');
-        const modelJsonPath = path.join(modelsDir, 'model.json');
-        const weightsBinPath = path.join(modelsDir, 'group1-shard1of1.bin');
-        
-        console.log(`Loading AI model from: ${modelJsonPath}`);
-        
-        if (!fs.existsSync(modelJsonPath) || !fs.existsSync(weightsBinPath)) {
-            throw new Error('Model files not found');
+        if (!model) {
+            const modelUrl = `http://localhost/api/ai/models/model.json`;
+
+            // Ensure TensorFlow.js is ready
+            await tf.ready();
+            console.log(logprefix + 'TensorFlow.js backend:', tf.getBackend());
+
+            // Try loading with fetch options
+            model = await tf.loadLayersModel(modelUrl, {
+                strict: false // Less strict loading
+            });
+
+            console.log(logprefix + 'Model loaded successfully!');
+            model.summary();
         }
-        
-        const modelJSON = JSON.parse(fs.readFileSync(modelJsonPath, 'utf8'));
-        const weightsData = fs.readFileSync(weightsBinPath);
-        
-        model = await tf.loadLayersModel(
-            tf.io.fromMemory(modelJSON.modelTopology, weightsData)
-        );
-        
-        modelReady = true;
-        console.log("✅ AI Model loaded successfully!");
-        
+        return model;
     } catch (error) {
-        console.error("❌ Failed to load AI model:", error.message);
-        process.exit(1);
+        console.error(logprefix + 'Error loading model:', error);
+        console.error(logprefix + 'Full error stack:', error.stack);
+        throw error;
     }
 }
 
-loadModel();
-
-// Health check endpoint
-router.get("/status", (req, res) => {
-    res.json({
-        ready: modelReady,
-        message: modelReady ? "AI Ready" : "AI Loading"
-    });
-});
-
-// Get AI move endpoint
-router.post("/move", async (req, res) => {
+// Endpoint to load the model
+router.get('/load', async (req, res) => {
     try {
-        if (!modelReady || !model) {
-            return res.status(503).json({
-                success: false,
-                error: "AI Model not loaded"
-            });
-        }
-        
-        const { board } = req.body;
-        
-        if (!Array.isArray(board) || board.length !== 9) {
-            return res.status(400).json({
-                success: false,
-                error: "Invalid board format"
-            });
-        }
-        
-        // Get model predictions
-        const input = tf.tensor2d([board], [1, 9]);
-        const predictions = model.predict(input);
-        const predData = await predictions.data();
-        
-        // Find best available move
-        const availableMoves = board
-            .map((cell, idx) => cell === 0 ? idx : null)
-            .filter(idx => idx !== null);
-        
-        if (availableMoves.length === 0) {
-            input.dispose();
-            predictions.dispose();
-            return res.json({ success: true, move: null });
-        }
-        
-        let bestMove = availableMoves[0];
-        let bestValue = predData[availableMoves[0]];
-        
-        for (let move of availableMoves) {
-            if (predData[move] > bestValue) {
-                bestValue = predData[move];
-                bestMove = move;
-            }
-        }
-        
-        input.dispose();
-        predictions.dispose();
-        
-        res.json({
-            success: true,
-            move: bestMove,
-            confidence: bestValue
-        });
-        
+        // const protocol = req.protocol;
+        // const host = req.get('host');
+        // const baseUrl = `${protocol}://${host}`;
+
+        await loadModel();
+        res.json({ success: true, message: 'Model loaded successfully' });
     } catch (error) {
-        console.error("Error in /move endpoint:", error);
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
+
+router.get("/getAIMove", async (req, res) => {
+    try {
+        // Load model if not already loaded
+        if (!model) {
+            const protocol = req.protocol;
+            const host = req.get('host');
+            const baseUrl = `${protocol}://${host}`;
+            await loadModel(baseUrl);
+        }
+
+        let board = JSON.parse(req.query.Board);
+        let available_moves = [];
+
+        for (let i = 0; i < 9; i++) {
+            if (board[i] === 0) {
+                available_moves.push(i);
+            }
+        }
+
+        // Get predictions from model
+        const inputTensor = tf.tensor2d([board]);
+        const predictionTensor = model.predict(inputTensor);
+        const predictions = await predictionTensor.array();
+
+        // Clean up tensors
+        inputTensor.dispose();
+        predictionTensor.dispose();
+
+        // Get probabilities for available moves
+        let move_probs = [];
+        for (let move of available_moves) {
+            move_probs.push(predictions[0][move]); // Fixed: predictions[0][move]
+        }
+
+        // Find the index of the highest probability
+        const chosen_index = move_probs.indexOf(Math.max(...move_probs));
+        const chosen_move = available_moves[chosen_index];
+
+        board[chosen_move] = -1;
+
+        res.json({ "Okay": true, "Board": board }); // Fixed typo: "Board"
+    } catch (error) {
+        console.error(logprefix + 'getAIMove error:', error.message);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 
 export { router };

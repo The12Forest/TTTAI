@@ -46,6 +46,8 @@ app.use("/play/ai", express.static("./Frontend/AIvsHuman"));
 app.use("/play/vs", express.static("./Frontend/HumanVsHuman"));
 app.use("/log", express.static("./LOG"));
 
+app.use('/api/ai/models', express.static("./Backend/routes/ai/models"));
+
 // Routerroutes
 app.use("/api/user", userRouter);
 app.use("/api/main", mainRouter);
@@ -54,6 +56,8 @@ app.use("/api/ai", aiRouter);
 // app.use("/api/storage", adminRouter);
 // app.use("/api/login", loginRouter);
 // app.use("/api/shutdown", shutdownRouter);
+
+
 
 // app.get("/Main", (req, res) => {
 //   res.redirect("/");
@@ -107,9 +111,11 @@ console.log = function (message, ...optionalParams) {
   originalLog(Time() + message, ...optionalParams);
 };
 
-console.clear();
+// console.clear();
 console.log("Server Startup!");
 fetch(baseurl + "/api/main/load");
+fetch(baseurl + "/api/ai/load");
+
 
 export default app;
 

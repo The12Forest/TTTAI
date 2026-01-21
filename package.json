@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs": "^4.22.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
     "express": "^5.2.1",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",

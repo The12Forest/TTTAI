@@ -41,20 +41,20 @@ body {
 }
 
 /* Add right border to columns 1 and 2 */
+.card_0, .card_3, .card_6 {
+    border-right: var(--border-color) var(--card-border) solid;
+}
+
 .card_1, .card_4, .card_7 {
     border-right: var(--border-color) var(--card-border) solid;
 }
 
-.card_2, .card_5, .card_8 {
-    border-right: var(--border-color) var(--card-border) solid;
-}
-
 /* Add bottom border to rows 1 and 2 */
-.card_1, .card_2, .card_3 {
+.card_0, .card_1, .card_2 {
     border-bottom: var(--border-color) var(--card-border) solid;
 }
 
-.card_4, .card_5, .card_6 {
+.card_3, .card_4, .card_5 {
     border-bottom: var(--border-color) var(--card-border) solid;
 }
 
@@ -70,15 +70,15 @@ body {
     padding: 0;
 }
 
-.card_1 { grid-area: a; }
-.card_2 { grid-area: b; }
-.card_3 { grid-area: c; }
-.card_4 { grid-area: d; }
-.card_5 { grid-area: e; }
-.card_6 { grid-area: f; }
-.card_7 { grid-area: g; }
-.card_8 { grid-area: h; }
-.card_9 { grid-area: i; }
+.card_0 { grid-area: a; }
+.card_1 { grid-area: b; }
+.card_2 { grid-area: c; }
+.card_3 { grid-area: d; }
+.card_4 { grid-area: e; }
+.card_5 { grid-area: f; }
+.card_6 { grid-area: g; }
+.card_7 { grid-area: h; }
+.card_8 { grid-area: i; }
 
 
 .Banner {
