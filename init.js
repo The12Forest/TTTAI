@@ -28,8 +28,8 @@ const httpPort = 80;
 const httpsPort = 443;
 
 // SSL-Zertifikate laden
-const privateKey = fs.readFileSync("./Cert/key.pem", "utf8");
-const certificate = fs.readFileSync("./Cert/cert.pem", "utf8");
+const privateKey = fs.readFileSync("./cert/key.pem", "utf8");
+const certificate = fs.readFileSync("./cert/cert.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 // Custom File Mappings
