@@ -75,10 +75,7 @@ router.get("/getAIMove", async (req, res) => {
     try {
         // Load model if not already loaded
         if (!model) {
-            const protocol = req.protocol;
-            const host = req.get('host');
-            const baseUrl = `${protocol}://${host}`;
-            await loadModel(baseUrl);
+            await loadModel();
         }
 
         let board = JSON.parse(req.query.Board);
@@ -109,7 +106,7 @@ router.get("/getAIMove", async (req, res) => {
         const chosen_index = move_probs.indexOf(Math.max(...move_probs));
         const chosen_move = available_moves[chosen_index];
 
-        board[chosen_move] = -1;
+        board[chosen_move] = 1;
 
         res.json({ "Okay": true, "Board": board }); // Fixed typo: "Board"
     } catch (error) {
