@@ -31,9 +31,9 @@ function getBoardState() {
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
         if (cell.textContent === "O") {
-            state.push(-1);
-        } else if (cell.textContent === "X") {
             state.push(1);
+        } else if (cell.textContent === "X") {
+            state.push(-1);
         } else {
             state.push(0);
         }
@@ -46,10 +46,10 @@ function setBoardFromArray(arr) {
     round = 0;
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
-        if (arr[i] === -1) {
+        if (arr[i] === 1) {
             cell.textContent = "O";
             round++;
-        } else if (arr[i] === 1) {
+        } else if (arr[i] === -1) {
             cell.textContent = "X";
             round++;
         } else {
@@ -119,9 +119,9 @@ async function aiMove() {
         const newBoard = data.Borad || data.Board;
         
         // Find AI move by comparing boards
-        let aiMoveIndex = -1;
+        let aiMoveIndex = 1;
         for (let i = 0; i < 9; i++) {
-            if (boardState[i] !== newBoard[i] && newBoard[i] === -1) {
+            if (boardState[i] !== newBoard[i] && newBoard[i] === 1) {
                 aiMoveIndex = i;
                 break;
             }
