@@ -67,12 +67,12 @@ app.use("/api/ai", aiRouter);
 // });
 
 //HTTP-Server
-http.createServer(app).listen(httpPort, () => {
+http.createServer(app).listen(httpPort, '0.0.0.0', () => {
   console.log(`HTTP server running on port ${httpPort}`);
 });
 
 // HTTPS-Server
-https.createServer(credentials, app).listen(httpsPort, () => {
+https.createServer(credentials, app).listen(httpsPort, '0.0.0.0', () => {
   console.log(`HTTPS server running on port ${httpsPort}`);
 });
 
