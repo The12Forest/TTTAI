@@ -119,9 +119,9 @@ async function aiMove() {
         const newBoard = data.Borad || data.Board;
         
         // Find AI move by comparing boards
-        let aiMoveIndex = -1;
+        let aiMoveIndex = 1;
         for (let i = 0; i < 9; i++) {
-            if (boardState[i] !== newBoard[i] && newBoard[i] === -1) {
+            if (boardState[i] !== newBoard[i] && newBoard[i] === 1) {
                 aiMoveIndex = i;
                 break;
             }
