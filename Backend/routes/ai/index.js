@@ -117,3 +117,24 @@ router.get("/getAIMove", async (req, res) => {
 
 
 export { router };
+/*
+
+Create a file tensorflow.continue.py int the Gen data Folder
+
+
+it shoud ask for a model path at start and it acepts a h5 model
+
+
+afterwards let a human play against the AI in the Terminal. If the Human wone save the winner s play as 1 is human and -1 is AI then save eatch game move as an individual dataset as [
+    [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]],
+    [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]],
+    [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]],
+    [[Ausgang][The Position the Human Played]]
+]
+one time the human begins one time the ai begins
+ask after eatch game if it shoud now finetune the model on the gatherd data but only ask after 100 sampels 
+
+
+ten finetune the AI on the gameplay of the Human after ask if the program shoud be stoped or if it shoud repeat the whole sicle 
+
+the ai palys with an array of the gamefield and then gives an array of 9 with the probabilety of the position the ai wants to play 
