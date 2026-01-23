@@ -5,71 +5,44 @@ const router = express.Router();
 const logprefix = "AIRouter:        ";
 let model = null;
 
-// try {
-//     if (!model) {
-//         // Load via HTTP URL (adjust port as needed)
-//         model = await tf.loadLayersModel('http://localhost:80/api/ai/models/model.json');
-//         console.log(logprefix + 'Model loaded successfully!');
-//     }
-// } catch (error) {
-//     console.error(logprefix + 'Error loading model:', error.message);
-// }
-
-
 // async function loadModel() {
 //     try {
 //         if (!model) {
 //             const modelUrl = `http://localhost/api/ai/models/model.json`;
-//             console.log(logprefix + 'Loading model from:', modelUrl);
-//             model = await tf.loadLayersModel(modelUrl);
+
+//             // Ensure TensorFlow.js is ready
+//             await tf.ready();
+//             console.log(logprefix + 'TensorFlow.js backend:', tf.getBackend());
+
+//             // Try loading with fetch options
+//             model = await tf.loadLayersModel(modelUrl, {
+//                 strict: false // Less strict loading
+//             });
+
 //             console.log(logprefix + 'Model loaded successfully!');
 //             model.summary();
 //         }
 //         return model;
 //     } catch (error) {
-//         console.error(logprefix + 'Error loading model:', error.message);
+//         console.error(logprefix + 'Error loading model:', error);
+//         console.error(logprefix + 'Full error stack:', error.stack);
 //         throw error;
 //     }
 // }
 
-async function loadModel() {
-    try {
-        if (!model) {
-            const modelUrl = `http://localhost/api/ai/models/model.json`;
+// // Endpoint to load the model
+// router.get('/load', async (req, res) => {
+//     try {
+//         // const protocol = req.protocol;
+//         // const host = req.get('host');
+//         // const baseUrl = `${protocol}://${host}`;
 
-            // Ensure TensorFlow.js is ready
-            await tf.ready();
-            console.log(logprefix + 'TensorFlow.js backend:', tf.getBackend());
-
-            // Try loading with fetch options
-            model = await tf.loadLayersModel(modelUrl, {
-                strict: false // Less strict loading
-            });
-
-            console.log(logprefix + 'Model loaded successfully!');
-            model.summary();
-        }
-        return model;
-    } catch (error) {
-        console.error(logprefix + 'Error loading model:', error);
-        console.error(logprefix + 'Full error stack:', error.stack);
-        throw error;
-    }
-}
-
-// Endpoint to load the model
-router.get('/load', async (req, res) => {
-    try {
-        // const protocol = req.protocol;
-        // const host = req.get('host');
-        // const baseUrl = `${protocol}://${host}`;
-
-        await loadModel();
-        res.json({ success: true, message: 'Model loaded successfully' });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
+//         await loadModel();
+//         res.json({ success: true, message: 'Model loaded successfully' });
+//     } catch (error) {
+//         res.status(500).json({ success: false, error: error.message });
+//     }
+// });
 
 router.get("/getAIMove", async (req, res) => {
     try {
@@ -92,9 +65,18 @@ router.get("/getAIMove", async (req, res) => {
         const predictionTensor = model.predict(inputTensor);
         const predictions = await predictionTensor.array();
 
-        // Clean up tensors
-        inputTensor.dispose();
-        predictionTensor.dispose();
+        const response = await fetch("http://localhost:8000/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                values: board
+            })
+        });
+
+        const data = await response.json();
+        predictions = await data.values
 
         // Get probabilities for available moves
         let move_probs = [];
