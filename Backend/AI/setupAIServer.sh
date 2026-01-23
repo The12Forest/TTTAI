@@ -18,10 +18,12 @@ pip install --upgrade pip
 echo "Installing dependencies..."
 pip install -r requirements.txt
 
-if [ ! -d "model" ]; then
-  echo "Creating TensorFlow model..."
-  python save_model.py
+if [ -d "models" ]; then
+  echo "Starting API..."
+  python app.py
 fi
 
-echo "Starting API..."
-python app.py
+if [ ! -d "models" ]; then
+  echo "Model not fund!"
+fi
+
