@@ -17,10 +17,15 @@ def predict():
         return jsonify({"error": "Missing 'values' parameter"}), 400
 
     try:
+        # Handle array format like [0, 0, 0, 0, 0, 0, 0, 0, 0] or comma-separated
+        values_str = values_param.strip()
+        if values_str.startswith('[') and values_str.endswith(']'):
+            values_str = values_str[1:-1]  # Remove brackets
+        
         # Parse the comma-separated string into a list of numbers
-        values = [float(x.strip()) for x in values_param.split(',')]
+        values = [float(x.strip()) for x in values_str.split(',')]
     except (ValueError, AttributeError):
-        return jsonify({"error": "Values must be comma-separated numbers"}), 400
+        return jsonify({"error": "Values must be comma-separated numbers or array format"}), 400
 
     if len(values) != 9:
         return jsonify({"error": "Input must contain exactly 9 numbers"}), 400
