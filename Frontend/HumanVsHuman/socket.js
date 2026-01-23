@@ -47,3 +47,7 @@ function sendMove(board) {
 
 
 console.log("Socket initialized");
+
+
+
+// Ich hasse Git
