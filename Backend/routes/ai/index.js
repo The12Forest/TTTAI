@@ -48,9 +48,9 @@ let model = null;
 router.get("/getAIMove", async (req, res) => {
     try {
         // Load model if not already loaded
-        if (!model) {
-            await loadModel();
-        }
+        // if (!model) {
+        //     await loadModel();
+        // }
 
         let board = JSON.parse(req.query.Board);
         let available_moves = [];
@@ -72,7 +72,7 @@ router.get("/getAIMove", async (req, res) => {
         });
 
         const data = await response.json();
-        const predictions = data.values
+        const predictions = data.values;
 
         // const data = await response.json();
         // predictions = await data.values
