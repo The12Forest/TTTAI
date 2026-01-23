@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 if [ -d "models" ]; then
   echo "Starting API..."
-  python app.py
+  python AI-Server.py
 fi
 
 if [ ! -d "models" ]; then

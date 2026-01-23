@@ -24,5 +24,5 @@ if not exist model (
 )
 
 echo Starting API...
-python app.py
+python AI-Server.py
 
