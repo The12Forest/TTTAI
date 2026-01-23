@@ -16,3 +16,4 @@ LOG/*
 */venv/*
 */venv
 venv/*
+**/venv/
