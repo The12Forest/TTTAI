@@ -19,8 +19,12 @@ def predict():
     try:
         # Handle array format like [0, 0, 0, 0, 0, 0, 0, 0, 0] or comma-separated
         values_str = values_param.strip()
-        if values_str.startswith('[') and values_str.endswith(']'):
-            values_str = values_str[1:-1]  # Remove brackets
+        
+        # Remove brackets if present (handle both [ ] and URL encoded %5B %5D)
+        if values_str.startswith('[') or values_str.startswith('%5B'):
+            values_str = values_str.lstrip('[').lstrip('%5B')
+        if values_str.endswith(']') or values_str.endswith('%5D'):
+            values_str = values_str.rstrip(']').rstrip('%5D')
         
         # Split by comma and clean up each value
         values = []
@@ -30,7 +34,10 @@ def predict():
                 values.append(float(cleaned))
                 
     except (ValueError, AttributeError) as e:
-        return jsonify({"error": f"Values must be comma-separated numbers or array format. Error: {str(e)}"}), 400
+        return jsonify({
+            "error": f"Values must be comma-separated numbers or array format. Error: {str(e)}", 
+            "received": values_param
+        }), 400
 
     if len(values) != 9:
         return jsonify({"error": "Input must contain exactly 9 numbers"}), 400
