@@ -65,7 +65,7 @@ router.get("/getAIMove", async (req, res) => {
         // const inputTensor = tf.tensor2d([board]);
         // const predictionTensor = model.predict(inputTensor);        
 
-        const response = await fetch('http://127.0.0.1:8000/predict', {
+        const response = await fetch('http://72.62.112.40:8000/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ values: board })
@@ -80,7 +80,7 @@ router.get("/getAIMove", async (req, res) => {
         // Get probabilities for available moves
         let move_probs = [];
         for (let move of available_moves) {
-            move_probs.push(predictions[0][move]); // Fixed: predictions[0][move]
+            move_probs.push(predictions[move]); // predictions is a flat array
         }
 
         // Find the index of the highest probability
