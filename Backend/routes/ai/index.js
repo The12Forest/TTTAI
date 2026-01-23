@@ -65,7 +65,7 @@ router.get("/getAIMove", async (req, res) => {
         // const inputTensor = tf.tensor2d([board]);
         // const predictionTensor = model.predict(inputTensor);        
 
-        const response = await fetch("http://localhost:8000/predict", {
+        const response = await fetch("http://127.0.0.1:8000/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
