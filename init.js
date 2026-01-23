@@ -9,7 +9,7 @@ const baseurl = "http://127.0.0.1";
 //Router Laden
 import { router as userRouter } from "./Backend/routes/user/index.js";
 import { router as mainRouter } from "./Backend/routes/main/index.js";
-import { router as aiRouter } from "./Backend/routes/ai/index.js";
+// import { router as aiRouter } from "./Backend/routes/ai/index.js";
 // import { router as adminRouter } from "./Backend/routes/storage/index.js";
 // import { router as loginRouter } from "./Backend/routes/login/index.js";
 // import { router as shutdownRouter } from "./Backend/routes/shutdown/index.js";
@@ -51,7 +51,7 @@ app.use('/api/ai/models', express.static("./Backend/routes/ai/models"));
 // Routerroutes
 app.use("/api/user", userRouter);
 app.use("/api/main", mainRouter);
-app.use("/api/ai", aiRouter);
+// app.use("/api/ai", aiRouter);
 // app.use("/api/user", userRouter);
 // app.use("/api/storage", adminRouter);
 // app.use("/api/login", loginRouter);
