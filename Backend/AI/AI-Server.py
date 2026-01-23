@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 import tensorflow as tf
 import numpy as np
+import json
 
 app = Flask(__name__)
 
@@ -10,32 +11,38 @@ model = tf.keras.models.load_model("models/ttt_model_perfect.h5")
 
 @app.route("/predict", methods=["POST", "GET"])
 def predict():
-    # Get values from request parameters
+    # Get values from request parameters or JSON body
     values_param = request.args.get('values') or request.form.get('values')
+    
+    # Also try JSON body for POST requests
+    if not values_param and request.is_json:
+        data = request.get_json()
+        if data and 'values' in data:
+            values = data['values']
+            if isinstance(values, list) and len(values) == 9:
+                try:
+                    input_array = np.array([values], dtype=np.float32)
+                    output = model.predict(input_array, verbose=0)
+                    return jsonify({"values": output[0].tolist()})
+                except Exception as e:
+                    return jsonify({"error": str(e)}), 500
     
     if not values_param:
         return jsonify({"error": "Missing 'values' parameter"}), 400
 
     try:
-        # Handle array format like [0, 0, 0, 0, 0, 0, 0, 0, 0] or comma-separated
         values_str = values_param.strip()
         
-        # Remove brackets if present (handle both [ ] and URL encoded %5B %5D)
-        if values_str.startswith('[') or values_str.startswith('%5B'):
-            values_str = values_str.lstrip('[').lstrip('%5B')
-        if values_str.endswith(']') or values_str.endswith('%5D'):
-            values_str = values_str.rstrip(']').rstrip('%5D')
-        
-        # Split by comma and clean up each value
-        values = []
-        for x in values_str.split(','):
-            cleaned = x.strip()
-            if cleaned:  # Skip empty strings
-                values.append(float(cleaned))
+        # Try to parse as JSON array first
+        if values_str.startswith('['):
+            values = json.loads(values_str)
+        else:
+            # Parse comma-separated values
+            values = [float(x.strip()) for x in values_str.split(',') if x.strip()]
                 
-    except (ValueError, AttributeError) as e:
+    except (ValueError, json.JSONDecodeError) as e:
         return jsonify({
-            "error": f"Values must be comma-separated numbers or array format. Error: {str(e)}", 
+            "error": f"Could not parse values. Error: {str(e)}", 
             "received": values_param
         }), 400
 
