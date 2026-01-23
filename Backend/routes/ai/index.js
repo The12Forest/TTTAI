@@ -1,6 +1,7 @@
 import * as tf from '@tensorflow/tfjs'
 import express from "express";
-import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
+// import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
+const fetch = require("node-fetch");
 const router = express.Router();
 const logprefix = "AIRouter:        ";
 let model = null;
@@ -61,22 +62,22 @@ router.get("/getAIMove", async (req, res) => {
         }
 
         // Get predictions from model
-        const inputTensor = tf.tensor2d([board]);
-        const predictionTensor = model.predict(inputTensor);
-        const predictions = await predictionTensor.array();
+        // const inputTensor = tf.tensor2d([board]);
+        // const predictionTensor = model.predict(inputTensor);
+        const predictions = null
+        
 
-        const response = await fetch("http://localhost:8000/predict", {
+        fetch("http://localhost:8000/predict", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                values: board
-            })
-        });
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ values: [1, 2, 3, 4, 5, 6, 7, 8, 9] })
+        })
+            .then(res => res.json())
+            .then(data => predictions = data.values);
+        
 
-        const data = await response.json();
-        predictions = await data.values
+        // const data = await response.json();
+        // predictions = await data.values
 
         // Get probabilities for available moves
         let move_probs = [];
