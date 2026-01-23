@@ -1,4 +1,4 @@
-let baseurl = "https://10.10.20.157/api"
+let baseurl = "https://port7.wnw.li/api"
 
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
