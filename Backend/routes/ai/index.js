@@ -1,4 +1,5 @@
 // import * as tf from '@tensorflow/tfjs'
+import { Log } from "@tensorflow/tfjs";
 import express from "express";
 // import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
 // const fetch = require("node-fetch");
@@ -65,15 +66,14 @@ router.get("/getAIMove", async (req, res) => {
         // const inputTensor = tf.tensor2d([board]);
         // const predictionTensor = model.predict(inputTensor);        
 
-        const response = await fetch('http://72.62.112.40:8000/predict', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ values: board })
-        });
+        const response = await fetch('http://127.0.0.1:8000/predict?values=' + JSON.stringify(board));
 
         const data = await response.json();
         const predictions = data.values;
 
+        console.log(logprefix + "Asking AI: " + JSON.stringify(board))
+        console.log(logprefix + "AI Answer: " + JSON.stringify(predictions))
+        
         // const data = await response.json();
         // predictions = await data.values
 
@@ -87,7 +87,8 @@ router.get("/getAIMove", async (req, res) => {
         const chosen_index = move_probs.indexOf(Math.max(...move_probs));
         const chosen_move = available_moves[chosen_index];
 
-        board[chosen_move] = 1;
+        // board[chosen_move] = 1;  // AI plays as 1 (O), matching training
+        board[chosen_move] = 1;  // AI plays as 1 (O), matching training
 
         res.json({ "Okay": true, "Board": board }); // Fixed typo: "Board"
     } catch (error) {
