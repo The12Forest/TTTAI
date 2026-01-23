@@ -114,7 +114,7 @@ console.log = function (message, ...optionalParams) {
 // console.clear();
 console.log("Server Startup!");
 fetch(baseurl + "/api/main/load");
-fetch(baseurl + "/api/ai/load");
+// fetch(baseurl + "/api/ai/load");
 
 
 export default app;
