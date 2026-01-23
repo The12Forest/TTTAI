@@ -88,7 +88,7 @@ router.get("/getAIMove", async (req, res) => {
         const chosen_move = available_moves[chosen_index];
 
         // board[chosen_move] = 1;  // AI plays as 1 (O), matching training
-        board[chosen_move] = 1;  // AI plays as 1 (O), matching training
+        board[chosen_move] = -1;  // AI plays as 1 (O), matching training
 
         res.json({ "Okay": true, "Board": board }); // Fixed typo: "Board"
     } catch (error) {
