@@ -1,7 +1,7 @@
-import * as tf from '@tensorflow/tfjs'
+// import * as tf from '@tensorflow/tfjs'
 import express from "express";
 // import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const router = express.Router();
 const logprefix = "AIRouter:        ";
 let model = null;
@@ -68,7 +68,9 @@ router.get("/getAIMove", async (req, res) => {
         const response = await fetch("http://localhost:8000/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ values: board })
+            body: JSON.stringify({
+                values: board
+            })
         });
 
         const data = await response.json();
