@@ -6,6 +6,13 @@
     --card-gap: 0px;
     --banner-blur: 33px;
     --border-color: hsl(0, 0%, 100%);
+    
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "GRAD" 0;
 }
 
 body {
@@ -86,7 +93,6 @@ body {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    
 
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -97,7 +103,7 @@ body {
     /* background-color: red; */
 }
 
-.Banner.show {
+.Banner .show {
     display: flex;
     justify-content: center;
     align-items: center;

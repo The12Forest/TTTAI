@@ -10,7 +10,7 @@ const baseurl = "http://127.0.0.1";
 import { router as userRouter } from "./Backend/routes/user/index.js";
 import { router as mainRouter } from "./Backend/routes/main/index.js";
 import { router as aiRouter } from "./Backend/routes/ai/index.js";
-// import { router as adminRouter } from "./Backend/routes/storage/index.js";
+import { router as gameRouter, initializeSocket } from "./Backend/routes/game/index.js";
 // import { router as loginRouter } from "./Backend/routes/login/index.js";
 // import { router as shutdownRouter } from "./Backend/routes/shutdown/index.js";
 
@@ -52,7 +52,7 @@ app.use('/api/ai/models', express.static("./Backend/routes/ai/models"));
 app.use("/api/user", userRouter);
 app.use("/api/main", mainRouter);
 app.use("/api/ai", aiRouter);
-// app.use("/api/user", userRouter);
+app.use("/api/game", gameRouter);
 // app.use("/api/storage", adminRouter);
 // app.use("/api/login", loginRouter);
 // app.use("/api/shutdown", shutdownRouter);
@@ -67,14 +67,19 @@ app.use("/api/ai", aiRouter);
 // });
 
 //HTTP-Server
-http.createServer(app).listen(httpPort, '0.0.0.0', () => {
+const httpServer = http.createServer(app);
+httpServer.listen(httpPort, '0.0.0.0', () => {
   console.log(`HTTP server running on port ${httpPort}`);
 });
 
 // HTTPS-Server
-https.createServer(credentials, app).listen(httpsPort, '0.0.0.0', () => {
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(httpsPort, '0.0.0.0', () => {
   console.log(`HTTPS server running on port ${httpsPort}`);
 });
+
+// Initialize Socket.IO for multiplayer games
+initializeSocket(httpServer);
 
 // Log
 function Time() {

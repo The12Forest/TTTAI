@@ -164,6 +164,7 @@ async function aiMove() {
 function checkWin(player) {
     for (const line of WIN_LINES) {
         if (line.every(i => getCell(i).textContent === player)) {
+            
             console.log(player + " wins!");
             return true;
         }

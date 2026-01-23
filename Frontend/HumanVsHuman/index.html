@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTTAI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="./favicon.png">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <header></header>
+  <div class="site">
+    <div class="cards" id="cards">
+      <div id="card_0" class="card card_0"></div>
+      <div id="card_1" class="card card_1"></div>
+      <div id="card_2" class="card card_2"></div>
+      <div id="card_3" class="card card_3"></div>
+      <div id="card_4" class="card card_4"></div>
+      <div id="card_5" class="card card_5"></div>
+      <div id="card_6" class="card card_6"></div>
+      <div id="card_7" class="card card_7"></div>
+      <div id="card_8" class="card card_8"></div>
+    </div>
+    <div class="LoadingInfo" id="LoadingInfo">
+      <h1><span class="typing">Searching for other Players...</span></h1>
+      <P>Please be patient.</P>
+    </div>
+  </div>
+
+  <div class="Banner" id="banner"></div>
+</body>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="socket.js"></script>
+<script src="script.js"></script>
+</html>
