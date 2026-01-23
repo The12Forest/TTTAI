@@ -11,3 +11,8 @@ packag-lock.json
 
 # Log files
 LOG/*
+
+#
+*/venv/*
+*/venv
+venv/*
