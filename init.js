@@ -44,7 +44,7 @@ app.use("/register", express.static("./Frontend/register"));
 app.use("/panel", express.static("./Frontend/panel"));
 app.use("/play/ai", express.static("./Frontend/AIvsHuman"));
 app.use("/play/vs", express.static("./Frontend/HumanVsHuman"));
-app.use("/log", express.static("./LOG"));
+app.use("/icons", express.static("./Frontend/Icons"));
 
 app.use('/api/ai/models', express.static("./Backend/routes/ai/models"));
 
