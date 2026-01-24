@@ -12,8 +12,15 @@ packag-lock.json
 # Log files
 LOG/*
 
-#
+# Python Virtual envoirement
 */venv/*
 */venv
 venv/*
 **/venv/
+
+
+# SSL/TLS Cert
+cert/
+
+# AI Models
+Backend/AI/models/
