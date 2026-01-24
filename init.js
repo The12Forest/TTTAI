@@ -33,9 +33,9 @@ const certificate = fs.readFileSync("./cert/cert.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 // Custom File Mappings
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/Frontend/home/index.html");
-// });
+app.get("/manifest.json", (req, res) => {
+  res.sendFile(__dirname + "/manifest.json");
+});
 
 // Foldermapings
 app.use("/", express.static("./Frontend/AIvsHuman"));
