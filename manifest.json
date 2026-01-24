@@ -1,16 +1,30 @@
 {
-    "name": "Tic Tac Toe AI",
-    "short_name": "TTTAI",
-    "start_url": "/panel",
-    "display": "standalone",
-    "background_color": "00000F",
-    "theme_color": "00000F",
-    "orientation": "portrait-primary",
-    "icons": [
-        {
-            "source": "/panel/favicon.png",
-            "type": "image/png",
-            "size": "512x512"
-        }
-    ]
+  "name": "Tic Tac Toe AI",
+  "short_name": "TTTAI",
+  "start_url": "/panel",
+  "display": "standalone",
+  "background_color": "#00000F",
+  "theme_color": "#00000F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/panel/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "390x844",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
 }
