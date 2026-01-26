@@ -1,4 +1,4 @@
-const socket = io("http://port7.wnw.li", {
+const socket = io({
     path: "/socket"
 });
 let roomId = null;
