@@ -80,6 +80,7 @@ httpsServer.listen(httpsPort, '0.0.0.0', () => {
 
 // Initialize Socket.IO for multiplayer games
 initializeSocket(httpServer);
+initializeSocket(httpsServer);
 
 // Log
 function Time() {
