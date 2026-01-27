@@ -109,7 +109,8 @@ body {
     align-items: center;
     visibility: visible !important;
 
-    background: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+    color: white;
     backdrop-filter: blur(var(--banner-blur));
     -webkit-backdrop-filter: blur(var(--banner-blur));
 }
