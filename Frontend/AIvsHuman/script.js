@@ -151,7 +151,7 @@ async function aiMove() {
 
 // Check if a player has won
 function checkWin() {
-    if (start) {
+    if (isAIThinking) {
         let winner = checkPlayer("X");
         if (winner) {
             document.getElementById("banner").textContent = "You Win!";
