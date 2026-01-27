@@ -152,11 +152,21 @@ body {
     70%  { width: 31ch; }
     99.99% { width: 31ch; }
     100%  { width: 0; }
-    /* 100% { width: 0; } */
 }
  
 
 .LoadingInfo p {
     text-align: center;
     font-size: 1.2rem;
+}
+
+@media (max-width: 490px) {
+    .typing {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .LoadingInfo p {
+        text-align: center;
+        font-size: 1rem;
+    }
 }
