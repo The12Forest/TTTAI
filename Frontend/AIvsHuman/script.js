@@ -74,12 +74,7 @@ function clicked(e) {
     console.log(`Human played at index: ${index}`);
     
     // Check if human won
-    let winner = checkWin("X");
-    if (winner) {
-        document.getElementById("banner").textContent = "You Win!";
-        banner();
-        return;
-    }
+    checkWin()
     
     // Check for draw
     if (round === 9) {
@@ -134,13 +129,7 @@ async function aiMove() {
         console.log(`AI played at index: ${aiMoveIndex}`);
         
         // Check if AI won
-        let winner = checkWin("O");
-        if (winner) {
-            document.getElementById("banner").textContent = "AI Wins!";
-            banner();
-            isAIThinking = false;
-            return;
-        }
+        checkWin()
         
         // Check for draw
         if (round === 9) {
@@ -161,10 +150,44 @@ async function aiMove() {
 }
 
 // Check if a player has won
-function checkWin(player) {
+function checkWin() {
+    if (start) {
+        let winner = checkPlayer("X");
+        if (winner) {
+            document.getElementById("banner").textContent = "You Win!";
+            banner();
+            finish = true
+            return;
+        }
+        winner = checkPlayer("O");
+        if (winner) {
+            document.getElementById("banner").textContent = "You have lost!";
+            banner();
+            finish = true
+            return;
+        }
+    } else {
+        let winner = checkPlayer("O");
+        if (winner) {
+            document.getElementById("banner").textContent = "You Win!";
+            banner();
+            finish = true
+            return;
+        }
+        winner = checkPlayer("X");
+        if (winner) {
+            document.getElementById("banner").textContent = "You have lost!";
+            banner();
+            finish = true
+            return;
+        }
+    }
+}
+
+function checkPlayer(player) {
     for (const line of WIN_LINES) {
         if (line.every(i => getCell(i).textContent === player)) {
-            
+
             console.log(player + " wins!");
             return true;
         }
