@@ -103,11 +103,11 @@ body {
     /* background-color: red; */
 }
 
-#banner .show {
-    display: flex;
+.Banner.show {
+    display: flex !important;
     justify-content: center;
     align-items: center;
-    visibility: visible;
+    visibility: visible !important;
 
     background: rgb(255, 255, 255);
     backdrop-filter: blur(var(--banner-blur));
