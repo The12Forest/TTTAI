@@ -103,7 +103,7 @@ body {
     /* background-color: red; */
 }
 
-.Banner .show {
+#banner .show {
     display: flex;
     justify-content: center;
     align-items: center;
