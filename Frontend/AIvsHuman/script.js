@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location = "/panel";
     });
 
-    if (getCookie(username) == null) {
-        window.location = "/login"
+    const username = getCookie("username");
+    if (!username) {
+        window.location.href = "/login";
     }
 
 });
