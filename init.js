@@ -14,7 +14,7 @@ import { router as userRouter } from "./Backend/routes/user/index.js";
 import { router as mainRouter } from "./Backend/routes/main/index.js";
 import { router as aiRouter } from "./Backend/routes/ai/index.js";
 import { router as gameRouter, initializeSocket } from "./Backend/routes/game/index.js";
-// import { router as loginRouter } from "./Backend/routes/login/index.js";
+import { router as pointsRouter } from "./Backend/routes/user_points/index.js";
 // import { router as shutdownRouter } from "./Backend/routes/shutdown/index.js";
 
 //Setting Variables
@@ -56,7 +56,7 @@ app.use("/api/user", userRouter);
 app.use("/api/main", mainRouter);
 app.use("/api/ai", aiRouter);
 app.use("/api/game", gameRouter);
-// app.use("/api/storage", adminRouter);
+app.use("/api/points", pointsRouter);
 // app.use("/api/login", loginRouter);
 // app.use("/api/shutdown", shutdownRouter);
 
