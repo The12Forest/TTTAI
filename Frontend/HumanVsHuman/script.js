@@ -93,32 +93,37 @@ function checkWin() {
         let winner = checkPlayer("X");
         if (winner) {
             document.getElementById("outcome").textContent = "You Win!";
-            banner();
+            document.getElementById("banner").classList.add("show");;
+            finished = true
             return;
         }
         winner = checkPlayer("O");
         if (winner) {
             document.getElementById("outcome").textContent = "You have lost!";
-            banner();
+            document.getElementById("banner").classList.add("show");;
+            finished = true
             return;
         }
     } else {
         let winner = checkPlayer("O");
         if (winner) {
             document.getElementById("outcome").textContent = "You Win!";
-            banner();
+            document.getElementById("banner").classList.add("show");;
+            finished = true
             return;
         }
         winner = checkPlayer("X");
         if (winner) {
             document.getElementById("outcome").textContent = "You have lost!";
-            banner();
+            document.getElementById("banner").classList.add("show");;
+            finished = true
             return;
         }
     }
     if (round === 9) {
         document.getElementById("outcome").textContent = "It's a Draw!";
-        banner();
+        document.getElementById("banner").classList.add("show");;
+        finished = true
         return;
     }
 }
@@ -134,8 +139,4 @@ function checkPlayer(player) {
     return false;
 }
 
-
-function banner() {
-    document.getElementById("banner").classList.add("show");
-}
 

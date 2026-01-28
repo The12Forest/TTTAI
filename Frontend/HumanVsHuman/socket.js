@@ -5,6 +5,7 @@ let start = null
 let socket = io({
     path: "/socket"
 });
+let finished = false
 setupListeners();
 
 function playAgain() {
@@ -23,6 +24,7 @@ function playAgain() {
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setupListeners();
     isOponentThinking = false
+    finished = false
     roomId = null
     round = 0
     start = null
@@ -61,10 +63,12 @@ function setupListeners() {
     });
     
     socket.on("playerDisconnected", (playerId) => {
-        console.log("Player disconnected:", playerId);
-        socket.disconnect();
-        document.getElementById("outcome").textContent = "Other player disconnected!";
-        banner();
+        if (finished) {
+            console.log("Player disconnected:", playerId);
+            socket.disconnect();
+            document.getElementById("outcome").textContent = "Other player disconnected!";
+            banner();
+        }
     });
 }
 
