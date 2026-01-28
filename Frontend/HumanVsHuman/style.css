@@ -25,6 +25,7 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 0;
@@ -86,6 +87,20 @@ body {
 .cards.show {
     visibility: visible;
     display: grid;
+}
+.message {
+    visibility: hidden;
+    display: none;
+    position: fixed;
+}
+.message.show {
+    visibility: visible;
+    display: inline;
+    color: white;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 }
 
 .card_0 { grid-area: a; }

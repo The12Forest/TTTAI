@@ -16,13 +16,13 @@ function getCell(index) {
 
 // Initialize board on page load
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("banner").textContent = "Game Started - Your turn (X)";
-
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
         cell.dataset.index = i;
         cell.addEventListener("click", (e) => clicked(e));
     }
+    document.getElementById("LoadingInfo").style.display = "none";
+    gameGrid.classList.toggle("show")
 });
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
