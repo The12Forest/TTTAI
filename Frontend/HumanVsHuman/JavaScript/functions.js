@@ -64,5 +64,5 @@ function checkPlayer(player) {
 async function send_history(hasWone) {
     let hasWoneString
     if (hasWone) {hasWoneString = 1} else {hasWoneString = 0}
-    fetch("/api/points/countHuman/" + getCookie("username ") + "/" + hasWoneString)
+    fetch("/api/points/countHuman/" + getCookie("username") + "/" + hasWoneString)
 }

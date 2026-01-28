@@ -219,7 +219,7 @@ function send_play_history() {
 async function send_history(hasWone) {
     let hasWoneString
     if (hasWone) { hasWoneString = 1 } else { hasWoneString = 0 }
-    fetch("/api/points/countAI/" + getCookie("username ") + "/" + hasWoneString)
+    fetch("/api/points/countAI/" + getCookie("username") + "/" + hasWoneString)
 }
 
 function getCookie(name) {
