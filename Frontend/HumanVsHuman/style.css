@@ -171,3 +171,14 @@ body {
         font-size: 1rem;
     }
 }
+
+@media (max-width: 400px) {
+    .typing {
+        text-align: center;
+        font-size: 1rem;
+    }
+    .LoadingInfo p {
+        text-align: center;
+        font-size: 0.8rem;
+    }
+}

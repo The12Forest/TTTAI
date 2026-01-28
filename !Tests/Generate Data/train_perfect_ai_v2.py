@@ -779,3 +779,17 @@ if __name__ == "__main__":
     
     print("\n✅ DONE! Model saved.")
     print(f"Copy '{save_path}' to Backend/routes/ai/models/ to use.")
+
+
+
+greate a version 3 train_perfect_ai_v3.py
+
+
+make it even better use a formula to winn every time and block all trys to win 
+Here is a transcribed youtube video
+
+with nearly 20,000 ways to fill a Tic Tac tboard you're probably thinking that there is no steadfast way to win as it is all based on your opponent's choices and how you respond not only can you predict your opponent's positions but also have a move ready for anything they do in this video I will show you very basic rules on how you can win or tie every single game you play making it impossible for your opponents to win so here's how you can win tickt toe every single time firstly the way do this is dependent on whether you go first or second let's look at the first position if you're going first you want to put your X in any one of the corners now if the opponent puts their Circle anywhere but the center this is where you can jump in if they do this put your second X in any other corner so there's one space Gap in between to not lose immediately your opponent will have to put their o between this spot moving swiftly on put your third X in the final corner at this point it becomes impossible to defend as you have two routes to form a three in a row from either being a diagonal or straight line meaning your opponent has no possible options for a defense now let's rewind what if your opponent does put that o in the center simply follow the same strategy put your second X in one of the corners and be sure to defend and follow this path accordingly meaning you will either win or force a tie and what if you do actually have to go second if you're the second to go it may be harder to win the game but here's what you can still do if your opponent takes the center space counteract that by placing your o in a corner as you can then defend all possibilities of a win if your opponent takes a corner space take the middle space and in the same way this will force a draw but if your opponent starts on an edge that is not a corner you could possibly win there is an exact science on how to win tic T toe if this is your case put your first o in the center and if your opponent puts a X on the other Edge you can claim a victory easily however if not you have to settle for a draw and go again this means winning outright can be somewhat difficult unless major mistakes are made by player one but given that you are now a Tic Tac to professional a donation in the form of a like And subscribe would be much appreciated
+
+
+
+
