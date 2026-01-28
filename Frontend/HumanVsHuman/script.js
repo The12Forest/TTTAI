@@ -142,3 +142,13 @@ function banner() {
     document.getElementById("banner").classList.add("show");
 }
 
+window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("playagain").addEventListener("click", () => {
+        playAgain();
+    });
+    document.getElementById("GoToPanel").addEventListener("click", () => {
+        window.location = "/panel";
+    });
+});
+
+

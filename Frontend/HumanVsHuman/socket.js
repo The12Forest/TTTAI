@@ -1,13 +1,20 @@
-const socket = io({
+let socket = io({
     path: "/socket"
 });
 let roomId = null;
 let gameDiv = document.querySelector('.site');
 let gameGrid = document.getElementById('cards');
 
-// window.addEventListener("DOMContentLoaded", () => {
+function playAgain() {
+    socket = null;
+    socket = io({
+        path: "/socket"
+    });
+    document.getElementById("LoadingInfo").style.display = "block";
+    document.querySelector(".message").classList.remove("show");
+    gameGrid.classList.remove("show");
+}
 
-// });
 
 let start = null
 socket.on("startGame", (arg) => {

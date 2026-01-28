@@ -15,9 +15,7 @@ function getCell(index) {
 }
 
 // Initialize board on page load
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("banner").textContent = "Game Started - Your turn (X)";
-    
+document.addEventListener('DOMContentLoaded', () => {    
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
         cell.dataset.index = i;
@@ -76,14 +74,14 @@ function clicked(e) {
     // Check if human won
     let winner = checkWin("X");
     if (winner) {
-        document.getElementById("banner").textContent = "You Win!";
+        document.getElementById("outcome").textContent = "You Win!";
         banner();
         return;
     }
     
     // Check for draw
     if (round === 9) {
-        document.getElementById("banner").textContent = "It's a Draw!";
+        document.getElementById("bannoutcomeer").textContent = "It's a Draw!";
         banner();
         return;
     }
@@ -111,7 +109,8 @@ async function aiMove() {
         
         if (!data.Okay) {
             console.error('AI error:', data.error);
-            document.getElementById("banner").textContent = "AI Error";
+            banner();
+            document.getElementById("outcome").textContent = "AI Error";
             isAIThinking = false;
             return;
         }
@@ -136,7 +135,7 @@ async function aiMove() {
         // Check if AI won
         let winner = checkWin("O");
         if (winner) {
-            document.getElementById("banner").textContent = "AI Wins!";
+            document.getElementById("outcome").textContent = "AI Wins!";
             banner();
             isAIThinking = false;
             return;
@@ -144,17 +143,17 @@ async function aiMove() {
         
         // Check for draw
         if (round === 9) {
-            document.getElementById("banner").textContent = "It's a Draw!";
+            document.getElementById("outcome").textContent = "It's a Draw!";
             banner();
             isAIThinking = false;
             return;
         }
         
-        document.getElementById("banner").textContent = "Your turn (X)";
+        document.getElementById("outcome").textContent = "Your turn (X)";
         
     } catch (error) {
         console.error('Error calling AI API:', error);
-        document.getElementById("banner").textContent = "Error: " + error.message;
+        document.getElementById("outcome").textContent = "Error: " + error.message;
     }
     
     isAIThinking = false;
