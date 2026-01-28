@@ -10,7 +10,7 @@ setupListeners();
 function playAgain() {
     document.getElementById("banner").classList.remove("show");
     document.getElementById("LoadingInfo").style.display = "flex";
-    document.querySelector(".message").classList.remove("show");
+    document.querySelector("message").classList.remove("show");
     document.getElementById('cards').classList.remove("show");
 
     socket.disconnect();
