@@ -8,7 +8,7 @@ const WIN_LINES = [
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
     [0, 4, 8], [2, 4, 6]             // diagonals
 ];
-checkWinRepeat()
+
 // Get cell by index 0-8
 function getCell(index) {
     return document.getElementById("card_" + index);
@@ -177,3 +177,4 @@ function banner() {
     document.getElementById("banner").classList.add("show");
 }
 
+checkWinRepeat()
