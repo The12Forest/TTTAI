@@ -1,14 +1,14 @@
 let xturn = true;
 let round = 0;
 let isOponentThinking = false;
-checkWinRepeat()
+
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
     [0, 4, 8], [2, 4, 6]             // diagonals
 ];
-
+checkWinRepeat()
 // Get cell by index 0-8
 function getCell(index) {
     return document.getElementById("card_" + index);
@@ -122,9 +122,12 @@ function checkWinRepeat() {
     setTimeout(() => checkWinRepeat(), 1);
 }
 
-function checkPlayer(player) {
+// Check if a player has won
+function checkWin(player) {
     for (const line of WIN_LINES) {
-        if (line.every(i => getCell(i).textContent === player)) {
+        if (getCell(line[1]).textContent == getCell(line[2]).textContent &&
+            getCell(line[2]).textContent == getCell(line[3]).textContent &&
+            getCell(line[3]).textContent == player) {
 
             console.log(player + " wins!");
             return true;
@@ -132,6 +135,7 @@ function checkPlayer(player) {
     }
     return false;
 }
+
 
 function banner() {
     document.getElementById("banner").classList.add("show");
