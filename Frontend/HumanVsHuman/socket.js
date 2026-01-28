@@ -6,6 +6,8 @@ let gameDiv = document.querySelector('.site');
 let gameGrid = document.getElementById('cards');
 
 function playAgain() {
+    console.log("Socket initialized");
+    socket.disconnect();
     socket = null;
     socket = io({
         path: "/socket"
@@ -14,6 +16,7 @@ function playAgain() {
     document.getElementById("LoadingInfo").style.display = "flex";
     document.querySelector(".message").classList.remove("show");
     gameGrid.classList.remove("show");
+    finish = flase
 }
 
 
@@ -47,9 +50,12 @@ socket.on("updateBoard", (arg) => {
 socket.on("playerDisconnected", (playerId) => {
     console.log("Player disconnected:", playerId);
     if (!finish) {
-        alert("Other player disconnected!");
+        socket.disconnect();
+        document.getElementById("outcome").textContent = "Other player disconnected!";
+        banner();
+        finish = true
+        return;
     }
-    socket.disconnect();
 });
 
 // Function to send move to other player
@@ -61,7 +67,6 @@ function sendMove(board) {
 }
 
 
-console.log("Socket initialized");
 
 
 
