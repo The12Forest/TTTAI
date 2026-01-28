@@ -15,6 +15,12 @@
       "GRAD" 0;
 }
 
+@media (max-width: 500px) {
+    :root {
+        --card: 100px;
+    }
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -122,11 +128,11 @@ body {
 .LoadingInfo {
     color: white;
     align-items: center;
-    display: flex;             /* aktivieren */
-    flex-direction: column;    /* Stapel: Typing-Text über p */
-    justify-content: center;   /* vertikal zentrieren */
-    align-items: center;       /* horizontal zentrieren */
-    height: 100vh;             /* optional, um die Seite komplett zu zentrieren */
+    display: flex;             
+    flex-direction: column;
+    justify-content: center;   
+    align-items: center;       
+    height: 100vh;         
 }
 
 .LoadingInfo h1 {

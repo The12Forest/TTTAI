@@ -8,6 +8,7 @@ let gameGrid = document.getElementById('cards');
 // window.addEventListener("DOMContentLoaded", () => {
 
 // });
+
 let start = null
 socket.on("startGame", (arg) => {
     console.log("Game started in room:", arg.room);
@@ -35,6 +36,7 @@ socket.on("playerDisconnected", (playerId) => {
     if (!finish) {
         alert("Other player disconnected!");
     }
+    socket.disconnect();
 });
 
 // Function to send move to other player
