@@ -1,7 +1,7 @@
 let xturn = true;
 let round = 0;
 let isOponentThinking = false;
-
+checkWinRepeat()
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -78,17 +78,11 @@ function clicked(e) {
 
     sendMove(getBoardState());
 
-    // Check if human won
-
     checkWin()
-
-    // Check for draw
-
-
 }
 
 // Check if a player has won
-function checkWin() {
+function checkWin2() {
     if (start) {
         let winner = checkPlayer("X");
         if (winner) {
@@ -123,6 +117,11 @@ function checkWin() {
     }
 }
 
+function checkWinRepeat() {
+    checkWin2()
+    setTimeout(() => checkWinRepeat(), 1);
+}
+
 function checkPlayer(player) {
     for (const line of WIN_LINES) {
         if (line.every(i => getCell(i).textContent === player)) {
@@ -146,5 +145,7 @@ window.addEventListener("DOMContentLoaded", () => {
         window.location = "/panel";
     });
 });
+
+
 
 

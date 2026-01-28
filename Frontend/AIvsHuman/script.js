@@ -1,7 +1,7 @@
 let xturn = true;
 let round = 0;
 let isAIThinking = false;
-
+checkWinRepeat()
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -154,10 +154,17 @@ function checkWin() {
     isAIThinking = false;
 }
 
+function checkWinRepeat() {
+    checkWin()
+    setTimeout(() => checkWinRepeat(), 1);
+}
+
 // Check if a player has won
 function checkWin(player) {
     for (const line of WIN_LINES) {
-        if (line.every(i => getCell(i).textContent === player)) {
+        if (getCell(line[1]).textContent == getCell(line[2]).textContent && 
+            getCell(line[2]).textContent == getCell(line[3]).textContent &&
+            getCell(line[3]).textContent == player) {
             
             console.log(player + " wins!");
             return true;
