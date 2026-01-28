@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function playAgain() {
     document.getElementById("banner").classList.remove("show");
-    document.querySelector("message").classList.remove("show");
+    document.getElementById("message").classList.remove("show");
     document.getElementById('cards').classList.remove("show");
 
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
