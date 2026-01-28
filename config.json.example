@@ -2,11 +2,13 @@
   "_comments": {
     "UseAi": "Use AI (LLM) to train the model",
     "OllamaEndPoint": "Address of the Ollama endpoint used for training",
+    "OllamaModlel": "The Model Ollama will use",
     "HttpsPort": "HTTPS server port",
     "HttpPort": "HTTP server port"
   },
   "UseAi": true,
   "OllamaEndPoint": "https://your-ollama-endpoint",
+  "OllamaModel": "qwen3-vl:8b",
   "HttpsPort": 443,
   "HttpPort": 80
 }
