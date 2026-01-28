@@ -97,41 +97,36 @@ router.post("/convertList", async (req, res) => {
             if (!Array.isArray(game) || game.length === 0) continue;
 
             // Send the entire game to Ollama for analysis
-            const prompt = `You are analyzing a tic-tac-toe game where the AI (playing as O) lost to the human (playing as X).
+            const prompt = `Analyze this tic-tac-toe game where AI (-1) lost to Human (1). Board positions: 0-8, left to right, top to bottom.
 
-Board positions layout:
-0 | 1 | 2
----------
-3 | 4 | 5
----------
-6 | 7 | 8
+Game moves:
+${game.map((state, i) => `Move ${i}: ${JSON.stringify(state)}`).join('\n')}
 
-Values: -1 = AI (O), 1 = Human (X), 0 = empty
+Find the critical AI mistakes. For each mistake, give me the board state BEFORE the wrong move and the correct position.
 
-Here is the complete game sequence (array of board states after each move):
-${JSON.stringify(game, null, 2)}
+Respond with ONLY this JSON format, no other text:
+{"corrections":[{"boardState":[0,0,0,0,0,0,0,0,0],"correctPosition":4,"explanation":"should block"}]}
 
-The human won this game. Analyze ALL moves and identify ONLY the critical moves where the AI played wrong and should have played differently to avoid losing.
+If there are no corrections needed, respond with: {"corrections":[]}`;
 
-For each wrong AI move, provide:
-- boardState: the board state BEFORE the AI made the wrong move (array of 9 numbers: -1, 0, or 1)
-- correctPosition: the position (0-8) where the AI SHOULD have played
-- explanation: why this move was critical
+            console.log(logprefix + "Sending game to Ollama for analysis...");
 
-Only include moves that actually matter - where a different AI move could have prevented the loss or led to a win/draw.
-
-Return ONLY valid JSON in this exact format:
-{"corrections": [{"boardState": [0,0,0,0,0,0,0,0,0], "correctPosition": 4, "explanation": "reason"}]}`;
-
-            const response = await ollama.generate({
+            const response = await ollama.chat({
                 model: conf.OllamaModel,
-                prompt: prompt,
+                messages: [{ role: "user", content: prompt }],
                 format: "json",
-                stream: false,
             });
 
+            const responseText = response.message?.content || "";
+            console.log(logprefix + "Ollama raw response: " + responseText);
+
+            if (!responseText || responseText.trim() === "") {
+                console.log(logprefix + "Empty response from Ollama, skipping game");
+                continue;
+            }
+
             try {
-                const parsed = JSON.parse(response.response);
+                const parsed = JSON.parse(responseText);
                 const result = CorrectedMoves.parse(parsed);
                 
                 for (const correction of result.corrections) {
@@ -144,7 +139,8 @@ Return ONLY valid JSON in this exact format:
                     console.log(logprefix + `Correction: position ${correction.correctPosition} - ${correction.explanation}`);
                 }
             } catch (parseError) {
-                console.log(logprefix + `Could not parse Ollama response: ${response.response}`);
+                console.log(logprefix + `Parse error: ${parseError.message}`);
+                console.log(logprefix + `Response was: ${responseText}`);
             }
         }
 
