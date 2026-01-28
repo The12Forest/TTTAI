@@ -18,10 +18,13 @@ function playAgain() {
     document.getElementById("LoadingInfo").style.display = "flex";
     document.querySelector(".message").classList.remove("show");
     gameGrid.classList.remove("show");
-    finish = false
     console.log("Socket initialized");
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setupListeners();
+    isOponentThinking = false3
+    finish = false
+    roomId = null
+    xturn = false;
 }
 
 function setupListeners() {
