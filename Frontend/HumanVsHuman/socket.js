@@ -21,7 +21,7 @@ function playAgain() {
     console.log("Socket initialized");
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setupListeners();
-    isOponentThinking = false3
+    isOponentThinking = false
     roomId = null
     xturn = false;
 }
