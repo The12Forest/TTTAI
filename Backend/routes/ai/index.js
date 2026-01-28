@@ -81,7 +81,7 @@ router.post("/convertList", async (req, res) => {
         // Initialize Ollama with endpoint from config
         const ollama = new Ollama({ host: conf.OllamaEndPoint });
 
-        // Schema for the corrected moves response
+        // Schema for validation
         const CorrectedMoves = z.object({
             corrections: z.array(z.object({
                 boardState: z.array(z.number()).length(9),
@@ -114,22 +114,25 @@ ${JSON.stringify(game, null, 2)}
 The human won this game. Analyze ALL moves and identify ONLY the critical moves where the AI played wrong and should have played differently to avoid losing.
 
 For each wrong AI move, provide:
-- boardState: the board state BEFORE the AI made the wrong move
+- boardState: the board state BEFORE the AI made the wrong move (array of 9 numbers: -1, 0, or 1)
 - correctPosition: the position (0-8) where the AI SHOULD have played
 - explanation: why this move was critical
 
 Only include moves that actually matter - where a different AI move could have prevented the loss or led to a win/draw.
-Return JSON with "corrections" array containing the critical moves to fix.`;
+
+Return ONLY valid JSON in this exact format:
+{"corrections": [{"boardState": [0,0,0,0,0,0,0,0,0], "correctPosition": 4, "explanation": "reason"}]}`;
 
             const response = await ollama.generate({
                 model: conf.OllamaModel,
                 prompt: prompt,
-                format: zodToJsonSchema(CorrectedMoves),
+                format: "json",
                 stream: false,
             });
 
             try {
-                const result = CorrectedMoves.parse(JSON.parse(response.response));
+                const parsed = JSON.parse(response.response);
+                const result = CorrectedMoves.parse(parsed);
                 
                 for (const correction of result.corrections) {
                     // Create output array: 9 values (0-1), 1 at correct position, 0 elsewhere
