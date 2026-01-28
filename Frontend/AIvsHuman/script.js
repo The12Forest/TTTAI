@@ -164,7 +164,7 @@ function checkWin() {
     }
 
     if (round === 9) {
-        document.getElementById("banner").textContent = "It's a Draw!";
+        document.getElementById("outcome").textContent = "It's a Draw!";
         banner();
         return;
     }
