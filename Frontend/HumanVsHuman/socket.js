@@ -29,6 +29,7 @@ socket.on("startGame", (arg) => {
 
     gameGrid.classList.add("show");
 
+    console.log("New Room ID: " + arg.room)
     roomId = arg.room;
     start = arg.start
     if (!start) {
