@@ -14,12 +14,16 @@ socket.on("startGame", (arg) => {
     console.log("Game started in room:", arg.room);
     document.getElementById("LoadingInfo").style.display = "none";
     document.querySelector(".message").classList.add("show");
+
     gameGrid.classList.add("show");
 
     roomId = arg.room;
     start = arg.start
     if (!start) {
+        document.querySelector(".message").textContent = "Wait for the oponenet to make there first move."
         isOponentThinking = true
+    } else {
+        document.querySelector(".message").textContent = "You can make the first Move!"
     }
 });
 
