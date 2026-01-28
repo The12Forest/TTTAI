@@ -24,3 +24,6 @@ cert/
 
 # AI Models
 Backend/AI/models/
+
+# Ignore the Server Config
+config.json
