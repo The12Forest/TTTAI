@@ -26,7 +26,7 @@ function playAgain() {
     roomId = null
     round = 0
     start = null
-    xturn = false;
+    xturn = true;
 }
 
 function setupListeners() {
@@ -43,8 +43,11 @@ function setupListeners() {
         if (!start) {
             document.querySelector(".message").textContent = "Wait for the oponenet to make there first move."
             isOponentThinking = true
+            xturn = false;
         } else {
             document.querySelector(".message").textContent = "You can make the first Move!"
+            isOponentThinking = false;
+            xturn = true;
         }
     });
     

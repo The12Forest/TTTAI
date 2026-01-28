@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.dataset.index = i;
         cell.addEventListener("click", (e) => clicked(e));
     }
+    document.getElementById("playagain").addEventListener("click", () => {
+        playAgain();
+    });
+    document.getElementById("GoToPanel").addEventListener("click", () => {
+        window.location = "/panel";
+    });
 });
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
@@ -117,11 +123,6 @@ function checkWin() {
     }
 }
 
-function checkWinRepeat() {
-    checkWin()
-    setTimeout(() => checkWinRepeat(), 1);
-}
-
 // Check if a player has won
 function checkPlayer(player) {
     for (const line of WIN_LINES) {
@@ -140,16 +141,4 @@ function checkPlayer(player) {
 function banner() {
     document.getElementById("banner").classList.add("show");
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("playagain").addEventListener("click", () => {
-        playAgain();
-    });
-    document.getElementById("GoToPanel").addEventListener("click", () => {
-        window.location = "/panel";
-    });
-});
-
-
-checkWinRepeat()
 

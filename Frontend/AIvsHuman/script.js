@@ -154,13 +154,8 @@ function checkWin() {
     isAIThinking = false;
 }
 
-function checkWinRepeat() {
-    checkWin()
-    setTimeout(() => checkWinRepeat(), 1);
-}
-
 // Check if a player has won
-function checkWin(player) {
+function checkcheckPlayerWin(player) {
     for (const line of WIN_LINES) {
         if (getCell(line[1]).textContent == getCell(line[2]).textContent && 
             getCell(line[2]).textContent == getCell(line[3]).textContent &&
@@ -176,5 +171,3 @@ function checkWin(player) {
 function banner() {
     document.getElementById("banner").classList.add("show");
 }
-
-checkWinRepeat()
