@@ -83,15 +83,10 @@ function clicked(e) {
     checkWin()
 
     // Check for draw
-    if (round === 9) {
-        document.getElementById("banner").textContent = "It's a Draw!";
-        banner();
-        return;
-    }
+
 
 }
 
-let finish
 // Check if a player has won
 function checkWin() {
     if (start) {
@@ -99,14 +94,12 @@ function checkWin() {
         if (winner) {
             document.getElementById("outcome").textContent = "You Win!";
             banner();
-            finish = true
             return;
         }
         winner = checkPlayer("O");
         if (winner) {
             document.getElementById("outcome").textContent = "You have lost!";
             banner();
-            finish = true
             return;
         }
     } else {
@@ -114,16 +107,19 @@ function checkWin() {
         if (winner) {
             document.getElementById("outcome").textContent = "You Win!";
             banner();
-            finish = true
             return;
         }
         winner = checkPlayer("X");
         if (winner) {
             document.getElementById("outcome").textContent = "You have lost!";
             banner();
-            finish = true
             return;
         }
+    }
+    if (round === 9) {
+        document.getElementById("banner").textContent = "It's a Draw!";
+        banner();
+        return;
     }
 }
 

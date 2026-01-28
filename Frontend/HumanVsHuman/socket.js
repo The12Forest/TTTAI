@@ -22,7 +22,6 @@ function playAgain() {
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setupListeners();
     isOponentThinking = false3
-    finish = false
     roomId = null
     xturn = false;
 }

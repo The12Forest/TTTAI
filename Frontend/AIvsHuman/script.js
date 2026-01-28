@@ -71,20 +71,7 @@ function clicked(e) {
     
     console.log(`Human played at index: ${index}`);
     
-    // Check if human won
-    let winner = checkWin("X");
-    if (winner) {
-        document.getElementById("outcome").textContent = "You Win!";
-        banner();
-        return;
-    }
-    
-    // Check for draw
-    if (round === 9) {
-        document.getElementById("bannoutcomeer").textContent = "It's a Draw!";
-        banner();
-        return;
-    }
+    checkWin();
     
     // AI's turn
     setTimeout(() => aiMove(), 10);
@@ -133,29 +120,37 @@ async function aiMove() {
         console.log(`AI played at index: ${aiMoveIndex}`);
         
         // Check if AI won
-        let winner = checkWin("O");
-        if (winner) {
-            document.getElementById("outcome").textContent = "AI Wins!";
-            banner();
-            isAIThinking = false;
-            return;
-        }
-        
-        // Check for draw
-        if (round === 9) {
-            document.getElementById("outcome").textContent = "It's a Draw!";
-            banner();
-            isAIThinking = false;
-            return;
-        }
-        
-        document.getElementById("outcome").textContent = "Your turn (X)";
-        
+        checkWin();
+                
     } catch (error) {
         console.error('Error calling AI API:', error);
         document.getElementById("outcome").textContent = "Error: " + error.message;
+        banner();
     }
     
+    isAIThinking = false;
+}
+
+function checkWin() {
+    let winner = checkPlayer("X");
+    if (winner) {
+        document.getElementById("outcome").textContent = "You Win!";
+        banner();
+        return;
+    }
+
+    winner = checkPlayer("O");
+    if (winner) {
+        document.getElementById("outcome").textContent = "AI has wone!";
+        banner();
+        return;
+    }
+
+    if (round === 9) {
+        document.getElementById("banner").textContent = "It's a Draw!";
+        banner();
+        return;
+    }
     isAIThinking = false;
 }
 
