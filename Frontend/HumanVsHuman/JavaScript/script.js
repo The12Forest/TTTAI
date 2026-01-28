@@ -1,7 +1,7 @@
 let xturn = true;
 let round = 0;
 let isOponentThinking = false;
-
+const username = getCookie("username");
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location = "/panel";
     });
 
-    const username = getCookie("username");
+    
     if (!username) {
         window.location.href = "/login";
     }

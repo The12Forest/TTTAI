@@ -1,8 +1,9 @@
 let xturn = true;
 let round = 0;
 let isAIThinking = false;
-
+let finished = false
 let game_play_history = []
+const username = getCookie("username");
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location = "/panel";
     });
 
-    const username = getCookie("username");
+    
     if (!username) {
         window.location.href = "/login";
     }
@@ -46,6 +47,7 @@ function playAgain() {
     round = 0
     xturn = true;
     game_play_history = []
+    finished = false
 }
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
@@ -164,6 +166,7 @@ function checkWin() {
         banner();
         send_play_history()
         send_history(true)
+        finished = true
         return;
     }
 
@@ -172,13 +175,14 @@ function checkWin() {
         document.getElementById("outcome").textContent = "AI has won";
         banner();
         send_history(false)
+        finished = true
         return;
     }
 
     if (round === 9) {
         document.getElementById("outcome").textContent = "It's a Draw!";
         banner();
-
+        finished = true
         return;
     }
     isAIThinking = false;
@@ -216,10 +220,10 @@ function send_play_history() {
         .catch(err => console.error(err));
 }
 
-async function send_history(hasWone) {
+function send_history(hasWone) {
     let hasWoneString
     if (hasWone) { hasWoneString = 1 } else { hasWoneString = 0 }
-    fetch("/api/points/countAI/" + getCookie("username") + "/" + hasWoneString)
+    fetch("/api/points/countAI/" + username + "/" + hasWoneString)
 }
 
 function getCookie(name) {
@@ -228,3 +232,10 @@ function getCookie(name) {
         .find(row => row.startsWith(name + "="))
         ?.split("=")[1];
 }
+
+window.addEventListener("unload", () => {
+    if (finished) return;
+
+    const url = `/api/points/countHuman/${username}/0`;
+    navigator.sendBeacon(url);
+});

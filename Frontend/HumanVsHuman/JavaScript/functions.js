@@ -61,8 +61,16 @@ function checkPlayer(player) {
     return false;
 }
 
-async function send_history(hasWone) {
+function send_history(hasWon) {
     let hasWoneString
-    if (hasWone) {hasWoneString = 1} else {hasWoneString = 0}
-    fetch("/api/points/countHuman/" + getCookie("username") + "/" + hasWoneString)
+    if (hasWon) {hasWoneString = 1} else {hasWoneString = 0}
+    fetch("/api/points/countHuman/" + username + "/" + hasWoneString)
 }
+
+window.addEventListener("unload", () => {
+    if (finished) return;
+
+    const url = `/api/points/countHuman/${username}/0`;
+    navigator.sendBeacon(url);
+});
+  
