@@ -72,7 +72,7 @@ router.post("/gameplayhistory", async (req, res) => {
 
 
 // Not Tested
-router.post("/convertList", async (req, res) => {
+router.get("/convertList", async (req, res) => {
     try {
         if (!gameplayhistory || gameplayhistory.length === 0) {
             return res.status(400).json({ Okay: false, Message: "No gameplay history available" });

@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("GoToPanel").addEventListener("click", () => {
         window.location = "/panel";
     });
+
+    if (getCookie(username) == null) {
+        window.location = "/login"
+    }
+
 });
 
 function playAgain() {
@@ -157,6 +162,7 @@ function checkWin() {
         document.getElementById("outcome").textContent = "You Win!";
         banner();
         send_play_history()
+        send_history(true)
         return;
     }
 
@@ -164,12 +170,14 @@ function checkWin() {
     if (winner) {
         document.getElementById("outcome").textContent = "AI has won";
         banner();
+        send_history(false)
         return;
     }
 
     if (round === 9) {
         document.getElementById("outcome").textContent = "It's a Draw!";
         banner();
+
         return;
     }
     isAIThinking = false;
@@ -205,4 +213,17 @@ function send_play_history() {
             return res.json();
         })
         .catch(err => console.error(err));
+}
+
+async function send_history(hasWone) {
+    let hasWoneString
+    if (hasWone) { hasWoneString = 1 } else { hasWoneString = 0 }
+    fetch("/api/points/countAI/" + getCookie("username ") + "/" + hasWoneString)
+}
+
+function getCookie(name) {
+    return document.cookie
+        .split("; ")
+        .find(row => row.startsWith(name + "="))
+        ?.split("=")[1];
 }
