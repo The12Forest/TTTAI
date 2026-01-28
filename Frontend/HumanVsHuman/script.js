@@ -123,7 +123,7 @@ function checkWinRepeat() {
 }
 
 // Check if a player has won
-function checkWin(player) {
+function checkPlayer(player) {
     for (const line of WIN_LINES) {
         if (getCell(line[1]).textContent == getCell(line[2]).textContent &&
             getCell(line[2]).textContent == getCell(line[3]).textContent &&
