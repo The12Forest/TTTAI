@@ -31,12 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function playAgain() {
     document.getElementById("banner").classList.remove("show");
-    document.getElementById("LoadingInfo").style.display = "flex";
     document.querySelector(".message").classList.remove("show");
     document.getElementById('cards').classList.remove("show");
 
     setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    setupListeners();
     isOponentThinking = false
     round = 0
     xturn = true;
