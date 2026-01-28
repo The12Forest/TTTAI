@@ -71,6 +71,7 @@ router.get("/register/:username/:passwd", (req, res) => {
 
     if (userIndex === -1) {
         if (passIndex === -1) {
+            fetch("http://127.0.0.1/api/points/add/account/" + username)
             usernames.push(username);
             passwords.push(passwd);
 
@@ -93,6 +94,7 @@ router.get("/delete/:username/:passwd", (req, res) => {
     if (UuserID === PuserID && PuserID !== -1) {
         usernames.splice(req.params.username, 1)
         passwords.splice(req.params.passwd, 1)
+        fetch("http://127.0.0.1/api/points/remove/account/" + username)
         res.json({"Okay": true, "Reason": "Deleted user successfully!"})
     } else {
         res.json({ "Okay": false, "Reason": "User dose not exist!" })
