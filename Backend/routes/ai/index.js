@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 const router = express.Router();
 const logprefix = "AIRouter:        ";
 let gameplayhistory = []
@@ -10,7 +11,7 @@ router.use("/save", (req, res) => {
 });
 
 router.use("/load", (req, res) => {
-    usernames = JSON.parse(fs.readFileSync("./Backend/saves/user/games_ai_history.json"));
+    gameplayhistory = JSON.parse(fs.readFileSync("./Backend/saves/user/games_ai_history.json"));
     console.log(logprefix + "History loaded:    " + JSON.stringify(gameplayhistory))
     res.json({ Okay: true, Message: "History loaded!" });
 });
@@ -53,7 +54,14 @@ router.get("/getAIMove", async (req, res) => {
 });
 
 router.post("/gameplayhistory", async (req, res) => {
-    console.log(req.body)
+    const { gameplay } = req.body;
+    if (gameplay && Array.isArray(gameplay)) {
+        gameplayhistory.push(gameplay);
+        console.log(logprefix + "Gameplay history received: " + JSON.stringify(gameplay));
+        res.json({ Okay: true, Message: "History recorded!" });
+    } else {
+        res.status(400).json({ Okay: false, Message: "Invalid gameplay data" });
+    }
 })
 
 
