@@ -1,0 +1,6 @@
+{
+    "UseAi": true,                                      /* Use AI (LLM) To Train the Model */
+    "OllamaEndPoint": "https://your-ollama-endpoint",   /* Address to the Ollama endpoint used for training */
+    "HttpsPort": 443,                                   /* Https Server Port */
+    "HttpPort": 80                                      /* Http Server Port */
+}

@@ -6,6 +6,9 @@ import http from "http";
 import { fileURLToPath } from "url";
 const baseurl = "http://127.0.0.1";
 
+//Config Laden
+const conf = JSON.parse(fs.readFileSync("./config.json"));
+
 //Router Laden
 import { router as userRouter } from "./Backend/routes/user/index.js";
 import { router as mainRouter } from "./Backend/routes/main/index.js";
@@ -24,8 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Ports Definieren
-const httpPort = 80;
-const httpsPort = 443;
+const httpPort = conf.HttpPort;
+const httpsPort = conf.HttpsPort;
 
 // SSL-Zertifikate laden
 const privateKey = fs.readFileSync("./cert/key.pem", "utf8");
