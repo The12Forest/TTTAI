@@ -13,6 +13,7 @@ let start = null
 socket.on("startGame", (arg) => {
     console.log("Game started in room:", arg.room);
     document.getElementById("LoadingInfo").style.display = "none";
+    document.getElementById("message").classList.toggle("show")
     gameGrid.classList.toggle("show")
 
     roomId = arg.room;

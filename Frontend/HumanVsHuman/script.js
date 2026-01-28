@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.dataset.index = i;
         cell.addEventListener("click", (e) => clicked(e));
     }
-    document.getElementById("LoadingInfo").style.display = "none";
-    gameGrid.classList.toggle("show")
 });
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
