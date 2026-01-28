@@ -11,7 +11,7 @@ function playAgain() {
         path: "/socket"
     });
     document.getElementById("banner").classList.remove("show");
-    document.getElementById("LoadingInfo").style.display = "block";
+    document.getElementById("LoadingInfo").style.display = "flex";
     document.querySelector(".message").classList.remove("show");
     gameGrid.classList.remove("show");
 }
