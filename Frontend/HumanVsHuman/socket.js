@@ -1,11 +1,11 @@
-let socket = io({
-    path: "/socket"
-});
 let roomId = null;
 let gameDiv = document.querySelector('.site');
 let gameGrid = document.getElementById('cards');
-
 let start = null
+let socket = io({
+    path: "/socket"
+});
+setupListeners();
 
 function playAgain() {
     socket.disconnect();
