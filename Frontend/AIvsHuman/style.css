@@ -7,6 +7,16 @@
     --banner-blur: 33px;
     --border-color: hsl(0, 0%, 100%);
     
+    
+    --bg: #181a27;
+    --bglight: #252738;
+    --primary: #5248ff;
+    --primary-hover: #4f46e5;
+    --primary-hover-active: #3e36e2;
+    --accent: #a73eed;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border: #334155;
     --primary-bg: rgb(0, 13, 36);
 
     font-family: "Google Sans", sans-serif;

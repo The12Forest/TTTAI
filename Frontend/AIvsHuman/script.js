@@ -160,7 +160,7 @@ function checkWin() {
 
     winner = checkPlayer("O");
     if (winner) {
-        document.getElementById("outcome").textContent = "AI has wone!";
+        document.getElementById("outcome").textContent = "AI has won";
         banner();
         return;
     }
