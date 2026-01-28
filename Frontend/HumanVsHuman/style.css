@@ -7,6 +7,17 @@
     --banner-blur: 33px;
     --border-color: hsl(0, 0%, 100%);
 
+    --bg: #181a27;
+    --bglight: #252738;
+    --primary: #5248ff;
+    --primary-hover: #4f46e5;
+    --primary-hover-active: #3e36e2;
+    --accent: #a73eed;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border: #334155;
+    --primary-bg: rgb(0, 13, 36);
+
     font-family: "Google Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -29,7 +40,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #000;
+    background-color: var(--primary-bg);
 }
 
 .site {
@@ -46,7 +57,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #000;
+    background-color: var(--primary-bg);
     color: white;
     font-size: 80px;
     font-weight: bold;
@@ -130,10 +141,10 @@ body {
 }
 
 .Banner.show {
+    visibility: visible !important;
     display: flex !important;
     justify-content: center;
     align-items: center;
-    visibility: visible !important;
 
     background: rgb(0, 0, 0);
     color: white;
@@ -171,7 +182,7 @@ body {
   
 @keyframes typing {
     0%   { width: 0; }
-    70%  { width: 31ch; }
+    80%  { width: 31ch; }
     99.99% { width: 31ch; }
     100%  { width: 0; }
 }
@@ -203,3 +214,41 @@ body {
         font-size: 0.8rem;
     }
 }
+
+.subbanner {
+    max-width: 500px;
+    width: 80%;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.goToPanel, .playagain {
+    flex: 1;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--primary);
+}
+
+.goToPanel:hover, .playagain:hover {
+    background-color: var(--primary-hover);
+}
+
+.goToPanel:active, .playagain:active {
+    background-color: var(--primary-hover-active);
+}
+
+.outcome {
+    font-size: 2rem;
+}
+

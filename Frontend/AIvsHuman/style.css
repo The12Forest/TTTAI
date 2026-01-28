@@ -7,6 +7,8 @@
     --banner-blur: 33px;
     --border-color: hsl(0, 0%, 100%);
     
+    --primary-bg: rgb(0, 13, 36);
+    
     font-family: "Google Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -28,7 +30,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: #000;
+    background-color: var(--primary-bg);
 }
 
 .site {
@@ -45,7 +47,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #000;
+    background-color: var(--primary-bg);
     color: white;
     font-size: 80px;
     font-weight: bold;

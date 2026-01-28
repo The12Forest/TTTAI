@@ -97,14 +97,14 @@ function checkWin() {
     if (start) {
         let winner = checkPlayer("X");
         if (winner) {
-            document.getElementById("banner").textContent = "You Win!";
+            document.getElementById("outcome").textContent = "You Win!";
             banner();
             finish = true
             return;
         }
         winner = checkPlayer("O");
         if (winner) {
-            document.getElementById("banner").textContent = "You have lost!";
+            document.getElementById("outcome").textContent = "You have lost!";
             banner();
             finish = true
             return;
@@ -112,14 +112,14 @@ function checkWin() {
     } else {
         let winner = checkPlayer("O");
         if (winner) {
-            document.getElementById("banner").textContent = "You Win!";
+            document.getElementById("outcome").textContent = "You Win!";
             banner();
             finish = true
             return;
         }
         winner = checkPlayer("X");
         if (winner) {
-            document.getElementById("banner").textContent = "You have lost!";
+            document.getElementById("outcome").textContent = "You have lost!";
             banner();
             finish = true
             return;
