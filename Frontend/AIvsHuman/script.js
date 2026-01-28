@@ -58,14 +58,13 @@ function getBoardState() {
 
 // Set the entire board from array [-1, 0, 1]
 function setBoardFromArray(arr) {
+
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
         if (arr[i] === -1) {
             cell.textContent = "O";
-            round++;
         } else if (arr[i] === 1) {
             cell.textContent = "X";
-            round++;
         } else {
             cell.textContent = "";
         }
@@ -131,6 +130,7 @@ async function aiMove() {
         
         // Set entire board from response
         setBoardFromArray(newBoard);
+        round++;
         xturn = true;
         
         console.log(`AI played at index: ${aiMoveIndex}`);
