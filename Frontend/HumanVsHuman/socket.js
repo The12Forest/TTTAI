@@ -10,6 +10,7 @@ function playAgain() {
     socket = io({
         path: "/socket"
     });
+    document.getElementById("banner").classList.remove("show");
     document.getElementById("LoadingInfo").style.display = "block";
     document.querySelector(".message").classList.remove("show");
     gameGrid.classList.remove("show");
