@@ -1,0 +1,16 @@
+
+.playbutons {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.vs-ai {
+    flex: 1;
+}
+
+.vs-player {
+    flex: 1;
+}
