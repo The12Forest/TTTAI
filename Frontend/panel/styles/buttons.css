@@ -23,6 +23,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none !important;
+}
+
+.vs-ai:link, .vs-ai:visited, .vs-ai:active,
+.vs-player:link, .vs-player:visited, .vs-player:active {
     text-decoration: none;
 }
 
@@ -46,4 +51,28 @@
     background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
     transform: scale(1.02);
     box-shadow: 0 12px 40px rgba(167, 62, 237, 0.4);
+}
+
+@media screen and (max-width: 768px) {
+    .playbutons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .vs-ai, .vs-player {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        border-radius: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .playbutons {
+        gap: 10px;
+    }
+
+    .vs-ai, .vs-player {
+        font-size: 1rem;
+        border-radius: 10px;
+    }
 }
