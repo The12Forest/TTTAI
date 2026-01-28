@@ -49,8 +49,9 @@ router.use("/countAI/:user/:wone", async (req, res) => {
         if(req.params.wone == 1){
             points[userID][2][1]++;
         }
+        res.json({ "Okay": true });
     } else {
-        res.status(400).json(res.json({"Okay": false, "Reason": "User dose not exist!"}))
+        res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
     }
 })
 
@@ -61,8 +62,9 @@ router.use("/countHuman/:user/:wone", async (req, res) => {
         if (req.params.wone == 1) {
             points[userID][2][2]++;
         }
+        res.json({ "Okay": true });
     } else {
-        res.status(400).json(res.json({ "Okay": false, "Reason": "User dose not exist!" }))
+        res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
     }
 })
 
