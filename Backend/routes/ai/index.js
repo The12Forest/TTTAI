@@ -11,13 +11,13 @@ let gameplayhistory = []
 
 
 router.use("/save", (req, res) => {
-    fs.writeFileSync("./Backend/saves/user/games_ai_history.json", JSON.stringify(gameplayhistory));
+    fs.writeFileSync("./Backend/saves/games_ai_history.json", JSON.stringify(gameplayhistory));
     console.log(logprefix + "History saved:     " + JSON.stringify(gameplayhistory));
     res.json({ Okay: true, Message: "History saved!" });
 });
 
 router.use("/load", (req, res) => {
-    gameplayhistory = JSON.parse(fs.readFileSync("./Backend/saves/user/games_ai_history.json"));
+    gameplayhistory = JSON.parse(fs.readFileSync("./Backend/saves/games_ai_history.json"));
     console.log(logprefix + "History loaded:    " + JSON.stringify(gameplayhistory))
     res.json({ Okay: true, Message: "History loaded!" });
 });
