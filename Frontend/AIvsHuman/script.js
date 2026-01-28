@@ -2,6 +2,7 @@ let xturn = true;
 let round = 0;
 let isAIThinking = false;
 
+let game_play_history = []
 // Win lines as index arrays
 const WIN_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
@@ -38,6 +39,7 @@ function playAgain() {
     isOponentThinking = false
     round = 0
     xturn = true;
+    game_play_history = []
 }
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
@@ -86,6 +88,7 @@ function clicked(e) {
     
     console.log(`Human played at index: ${index}`);
     
+    game_play_history.push(getBoardState())
     checkWin();
     
     // AI's turn
@@ -136,6 +139,7 @@ async function aiMove() {
         console.log(`AI played at index: ${aiMoveIndex}`);
         
         // Check if AI won
+        game_play_history.push(getBoardState())
         checkWin();
                 
     } catch (error) {
@@ -152,6 +156,7 @@ function checkWin() {
     if (winner) {
         document.getElementById("outcome").textContent = "You Win!";
         banner();
+        send_play_history()
         return;
     }
 
@@ -183,4 +188,21 @@ function checkPlayer(player) {
 
 function banner() {
     document.getElementById("banner").classList.add("show");
+}
+
+function send_play_history() {
+    fetch('/api/ai/gameplayhistory', {
+        method: 'POST', // or PUT, PATCH
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            gameplay: game_play_history
+        }),
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('Request failed');
+            return res.json();
+        })
+        .catch(err => console.error(err));
 }

@@ -1,58 +1,22 @@
-// import * as tf from '@tensorflow/tfjs'
-import { Log } from "@tensorflow/tfjs";
 import express from "express";
-// import '@tensorflow/tfjs-backend-cpu'; // Explicitly use CPU backend
-// const fetch = require("node-fetch");
 const router = express.Router();
 const logprefix = "AIRouter:        ";
-let model = null;
+let gameplayhistory = []
 
-// async function loadModel() {
-//     try {
-//         if (!model) {
-//             const modelUrl = `http://localhost/api/ai/models/model.json`;
+router.use("/save", (req, res) => {
+    fs.writeFileSync("./Backend/saves/user/games_ai_history.json", JSON.stringify(gameplayhistory));
+    console.log(logprefix + "History saved:     " + JSON.stringify(gameplayhistory));
+    res.json({ Okay: true, Message: "History saved!" });
+});
 
-//             // Ensure TensorFlow.js is ready
-//             await tf.ready();
-//             console.log(logprefix + 'TensorFlow.js backend:', tf.getBackend());
-
-//             // Try loading with fetch options
-//             model = await tf.loadLayersModel(modelUrl, {
-//                 strict: false // Less strict loading
-//             });
-
-//             console.log(logprefix + 'Model loaded successfully!');
-//             model.summary();
-//         }
-//         return model;
-//     } catch (error) {
-//         console.error(logprefix + 'Error loading model:', error);
-//         console.error(logprefix + 'Full error stack:', error.stack);
-//         throw error;
-//     }
-// }
-
-// // Endpoint to load the model
-// router.get('/load', async (req, res) => {
-//     try {
-//         // const protocol = req.protocol;
-//         // const host = req.get('host');
-//         // const baseUrl = `${protocol}://${host}`;
-
-//         await loadModel();
-//         res.json({ success: true, message: 'Model loaded successfully' });
-//     } catch (error) {
-//         res.status(500).json({ success: false, error: error.message });
-//     }
-// });
+router.use("/load", (req, res) => {
+    usernames = JSON.parse(fs.readFileSync("./Backend/saves/user/games_ai_history.json"));
+    console.log(logprefix + "History loaded:    " + JSON.stringify(gameplayhistory))
+    res.json({ Okay: true, Message: "History loaded!" });
+});
 
 router.get("/getAIMove", async (req, res) => {
     try {
-        // Load model if not already loaded
-        // if (!model) {
-        //     await loadModel();
-        // }
-
         let board = JSON.parse(req.query.Board);
         let available_moves = [];
 
@@ -62,9 +26,6 @@ router.get("/getAIMove", async (req, res) => {
             }
         }
 
-        // Get predictions from model
-        // const inputTensor = tf.tensor2d([board]);
-        // const predictionTensor = model.predict(inputTensor);        
 
         const response = await fetch('http://tttai-ai:8000/predict?values=' + JSON.stringify(board));
 
@@ -73,29 +34,27 @@ router.get("/getAIMove", async (req, res) => {
 
         console.log(logprefix + "Asking AI: " + JSON.stringify(board))
         console.log(logprefix + "AI Answer: " + JSON.stringify(predictions))
-        
-        // const data = await response.json();
-        // predictions = await data.values
 
-        // Get probabilities for available moves
         let move_probs = [];
         for (let move of available_moves) {
-            move_probs.push(predictions[move]); // predictions is a flat array
+            move_probs.push(predictions[move]);
         }
 
-        // Find the index of the highest probability
         const chosen_index = move_probs.indexOf(Math.max(...move_probs));
         const chosen_move = available_moves[chosen_index];
 
-        // board[chosen_move] = 1;  // AI plays as 1 (O), matching training
-        board[chosen_move] = -1;  // AI plays as 1 (O), matching training
+        board[chosen_move] = -1;  
 
-        res.json({ "Okay": true, "Board": board }); // Fixed typo: "Board"
+        res.json({ "Okay": true, "Board": board });
     } catch (error) {
         console.error(logprefix + 'getAIMove error:', error.message);
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
+router.post("/gameplayhistory", async (req, res) => {
+    console.log(req.body.JSON.gameplay)
+})
 
 
 export { router };
