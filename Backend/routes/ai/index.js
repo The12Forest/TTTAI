@@ -122,7 +122,7 @@ Only include moves that actually matter - where a different AI move could have p
 Return JSON with "corrections" array containing the critical moves to fix.`;
 
             const response = await ollama.generate({
-                model: "gpt-oss",
+                model: conf.OllamaModel,
                 prompt: prompt,
                 format: zodToJsonSchema(CorrectedMoves),
                 stream: false,
