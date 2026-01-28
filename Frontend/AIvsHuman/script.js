@@ -58,7 +58,6 @@ function getBoardState() {
 
 // Set the entire board from array [-1, 0, 1]
 function setBoardFromArray(arr) {
-    console.log("Badsfasdf;lkkjhasdflkjhasdfgf")
     for (let i = 0; i < 9; i++) {
         const cell = getCell(i);
         if (arr[i] === -1) {

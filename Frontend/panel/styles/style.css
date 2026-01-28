@@ -17,14 +17,17 @@
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
     margin: 0;
     padding: 0;
     border: 0;
     background-color: var(--bg);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 20fr;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
     /* gap: 30px; */
 }
 
