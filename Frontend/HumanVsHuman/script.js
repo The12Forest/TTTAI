@@ -126,10 +126,7 @@ function checkWin() {
 // Check if a player has won
 function checkPlayer(player) {
     for (const line of WIN_LINES) {
-        if (getCell(line[1]).textContent == getCell(line[2]).textContent &&
-            getCell(line[2]).textContent == getCell(line[3]).textContent &&
-            getCell(line[3]).textContent == player) {
-
+        if (line.every(i => getCell(i).textContent === player)) {
             console.log(player + " wins!");
             return true;
         }
