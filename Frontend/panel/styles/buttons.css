@@ -32,25 +32,33 @@
 }
 
 .vs-ai {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: var(--primary);
     color: var(--text-primary);
 }
 
 .vs-ai:hover {
-    background: linear-gradient(135deg, var(--primary-hover) 0%, #9333ea 100%);
+    background: var(--primary-hover);
     transform: scale(1.02);
     box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
 }
 
+.vs-ai:active {
+    background: var(--accent);
+}
+
 .vs-player {
-    background: linear-gradient(135deg, var(--accent) 0%, #ec4899 100%);
+    background: var(--primary);
     color: var(--text-primary);
 }
 
 .vs-player:hover {
-    background: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+    background: var(--primary-hover);
     transform: scale(1.02);
     box-shadow: 0 12px 40px rgba(167, 62, 237, 0.4);
+}
+
+.vs-player:active {
+    background: var(--accent);
 }
 
 @media screen and (max-width: 768px) {
