@@ -236,6 +236,6 @@ function getCookie(name) {
 window.addEventListener("unload", () => {
     if (finished) return;
 
-    const url = `/api/points/countHuman/${username}/0`;
+    const url = `/api/points/countAI/${username}/0`;
     navigator.sendBeacon(url);
 });
