@@ -41,7 +41,7 @@ Install the needed Packages with:
 ```powershell
 npm install
 ```
-if it dose not work use ``npm install express fs http https path socket.io``
+if it dose not work use ``npm install express fs http https path socket.io ollama zod zod-to-json-schema``
 
 Now finally start the Server with:
 ```powershell
