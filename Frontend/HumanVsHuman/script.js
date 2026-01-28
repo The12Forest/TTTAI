@@ -82,7 +82,7 @@ function clicked(e) {
 }
 
 // Check if a player has won
-function checkWin2() {
+function checkWin() {
     if (start) {
         let winner = checkPlayer("X");
         if (winner) {
@@ -118,7 +118,7 @@ function checkWin2() {
 }
 
 function checkWinRepeat() {
-    checkWin2()
+    checkWin()
     setTimeout(() => checkWinRepeat(), 1);
 }
 
