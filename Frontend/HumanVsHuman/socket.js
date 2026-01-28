@@ -6,7 +6,6 @@ let gameDiv = document.querySelector('.site');
 let gameGrid = document.getElementById('cards');
 
 function playAgain() {
-    console.log("Socket initialized");
     socket.disconnect();
     socket = null;
     socket = io({
@@ -16,7 +15,9 @@ function playAgain() {
     document.getElementById("LoadingInfo").style.display = "flex";
     document.querySelector(".message").classList.remove("show");
     gameGrid.classList.remove("show");
-    finish = flase
+    finish = false
+    console.log("Socket initialized");
+
 }
 
 
