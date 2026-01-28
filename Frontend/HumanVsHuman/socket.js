@@ -56,13 +56,9 @@ function setupListeners() {
     
     socket.on("playerDisconnected", (playerId) => {
         console.log("Player disconnected:", playerId);
-        if (!finish) {
-            socket.disconnect();
-            document.getElementById("outcome").textContent = "Other player disconnected!";
-            banner();
-            finish = true
-            return;
-        }
+        socket.disconnect();
+        document.getElementById("outcome").textContent = "Other player disconnected!";
+        banner();
     });
 }
 
