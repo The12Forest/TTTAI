@@ -21,7 +21,26 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.dataset.index = i;
         cell.addEventListener("click", (e) => clicked(e));
     }
+    document.getElementById("playagain").addEventListener("click", () => {
+        playAgain();
+    });
+    document.getElementById("GoToPanel").addEventListener("click", () => {
+        window.location = "/panel";
+    });
 });
+
+function playAgain() {
+    document.getElementById("banner").classList.remove("show");
+    document.getElementById("LoadingInfo").style.display = "flex";
+    document.querySelector(".message").classList.remove("show");
+    document.getElementById('cards').classList.remove("show");
+
+    setBoardFromArray([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    setupListeners();
+    isOponentThinking = false
+    round = 0
+    xturn = true;
+}
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]
 function getBoardState() {
