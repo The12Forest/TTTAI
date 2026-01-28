@@ -53,7 +53,7 @@ router.get("/getAIMove", async (req, res) => {
 });
 
 router.post("/gameplayhistory", async (req, res) => {
-    console.log(req.body.JSON.gameplay)
+    console.log(req.body)
 })
 
 
