@@ -41,6 +41,11 @@ body {
 
 #form {
     width: 100%;
+    line-height: 20px;
+}
+
+h1 {
+    color: white;
 }
 
 #form input, #form label{
@@ -77,8 +82,6 @@ body {
 
 #form #ssignl, #form #ssign {
     display: inline-block;
-    /* margin: 0; */
-    padding: 15px 0;
     width: auto;
 }
 
