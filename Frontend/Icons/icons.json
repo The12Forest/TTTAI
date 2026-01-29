@@ -1,27 +1,4 @@
 {
-  "name": "Tic Tac Toe AI",
-  "short_name": "TTTAI",
-  "start_url": "/panel",
-  "scope": "/",
-  "display": "standalone",
-  "background_color": "#00000F",
-  "theme_color": "#00000F",
-  "orientation": "portrait-primary",
-
-  "screenshots": [
-    {
-      "src": "/icons/screenshots/mobile.png",
-      "sizes": "390x844",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/screenshots/desktop.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
-
   "icons": [
     {
       "src": "/icons/windows11/SmallTile.scale-100.png",
