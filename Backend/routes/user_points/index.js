@@ -27,8 +27,10 @@ router.use("/add/account/:username", (req, res) => {
     if (users.indexOf(username) === -1) {
         users.push(username)
         points.push([[0, 0], [0, 0]])
+        console.log(logprefix + "Account added: " + username);
         res.json({ "Okay": true });
     } else {
+        console.log(logprefix + "Account already exists: " + username);
         res.status(400).json({"Okay": false, "reason": "User already exists!"})
     }
 })
@@ -39,8 +41,10 @@ router.use("/remove/account/:username", (req, res) => {
     if (userID !== -1) {
         users.splice(userID, 1)
         points.splice(userID, 1)
+        console.log(logprefix + "Account removed: " + username);
         res.json({ "Okay": true });
     } else {
+        console.log(logprefix + "Account not found: " + username);
         res.status(400).json({ "Okay": false, "reason": "User does not exist!" })
     }
 })
@@ -52,8 +56,10 @@ router.use("/countAI/:user/:wone", async (req, res) => {
         if(req.params.wone == 1){
             points[userID][0][1]++;  // winsAI
         }
+        console.log(logprefix + "AI game recorded for " + req.params.user + " (won: " + req.params.wone + ")");
         res.json({ "Okay": true });
     } else {
+        console.log(logprefix + "AI game failed - user not found: " + req.params.user);
         res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
     }
 })
@@ -65,8 +71,10 @@ router.use("/countHuman/:user/:wone", async (req, res) => {
         if (req.params.wone == 1) {
             points[userID][1][1]++;  // winsHuman
         }
+        console.log(logprefix + "Human game recorded for " + req.params.user + " (won: " + req.params.wone + ")");
         res.json({ "Okay": true });
     } else {
+        console.log(logprefix + "Human game failed - user not found: " + req.params.user);
         res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
     }
 })
@@ -81,6 +89,7 @@ router.use("/getStats/:user", async (req, res) => {
         const humanGames = userPoints[1][0];
         const humanWins = userPoints[1][1];
         
+        console.log(logprefix + "Stats requested for " + req.params.user);
         res.json({
             "Okay": true,
             "ai": {
@@ -97,6 +106,7 @@ router.use("/getStats/:user", async (req, res) => {
             }
         });
     } else {
+        console.log(logprefix + "Stats failed - user not found: " + req.params.user);
         res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
     }
 })
