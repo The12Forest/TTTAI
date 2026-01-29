@@ -168,4 +168,55 @@ body {
 
 .outcome {
     font-size: 2rem;
+    text-align: center;
+}
+
+.mini-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    background-color: var(--primary-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mini-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--primary-bg);
+}
+
+.mini-cell:nth-child(1),
+.mini-cell:nth-child(2),
+.mini-cell:nth-child(4),
+.mini-cell:nth-child(5) {
+    border-right: 2px solid var(--border-color);
+}
+
+.mini-cell:nth-child(1),
+.mini-cell:nth-child(2),
+.mini-cell:nth-child(3),
+.mini-cell:nth-child(4),
+.mini-cell:nth-child(5),
+.mini-cell:nth-child(6) {
+    border-bottom: 2px solid var(--border-color);
+}
+
+.mini-cell:nth-child(3),
+.mini-cell:nth-child(6),
+.mini-cell:nth-child(9) {
+    border-right: none;
+}
+
+.mini-cell:nth-child(7),
+.mini-cell:nth-child(8),
+.mini-cell:nth-child(9) {
+    border-bottom: none;
 }

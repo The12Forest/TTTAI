@@ -161,6 +161,7 @@ function checkWin() {
     let winner = checkPlayer("X");
     if (winner) {
         document.getElementById("outcome").textContent = "You Win!";
+        updateMiniBoard();
         banner();
         send_play_history()
         send_history(true)
@@ -171,6 +172,7 @@ function checkWin() {
     winner = checkPlayer("O");
     if (winner) {
         document.getElementById("outcome").textContent = "AI has won";
+        updateMiniBoard();
         banner();
         send_history(false)
         finished = true
@@ -179,11 +181,20 @@ function checkWin() {
 
     if (round === 9) {
         document.getElementById("outcome").textContent = "It's a Draw!";
+        updateMiniBoard();
         banner();
         finished = true
         return;
     }
     isAIThinking = false;
+}
+
+function updateMiniBoard() {
+    const miniCells = document.querySelectorAll('.mini-cell');
+    for (let i = 0; i < 9; i++) {
+        const cell = getCell(i);
+        miniCells[i].textContent = cell.textContent;
+    }
 }
 
 // Check if a player has won
