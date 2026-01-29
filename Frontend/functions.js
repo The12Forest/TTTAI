@@ -36,7 +36,7 @@ async function login() {
             "/api/user/login/" +
             encodeURIComponent(getCookie("username")) +
             "/" +
-            encodeURIComponent(getCookie("hashPassword"))
+            encodeURIComponent(getCookie("password"))
         );
 
         const data = await res.json();
