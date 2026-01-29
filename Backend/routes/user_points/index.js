@@ -71,4 +71,34 @@ router.use("/countHuman/:user/:wone", async (req, res) => {
     }
 })
 
+router.use("/getStats/:user", async (req, res) => {
+    let userID = users.indexOf(req.params.user)
+    if (userID !== -1) {
+        const userPoints = points[userID];
+        // Format: [[gamesAI, winsAI], [gamesHuman, winsHuman]]
+        const aiGames = userPoints[0][0];
+        const aiWins = userPoints[0][1];
+        const humanGames = userPoints[1][0];
+        const humanWins = userPoints[1][1];
+        
+        res.json({
+            "Okay": true,
+            "ai": {
+                "games": aiGames,
+                "wins": aiWins,
+                "losses": aiGames - aiWins,
+                "ratio": aiGames > 0 ? (aiWins / aiGames).toFixed(2) : 0
+            },
+            "human": {
+                "games": humanGames,
+                "wins": humanWins,
+                "losses": humanGames - humanWins,
+                "ratio": humanGames > 0 ? (humanWins / humanGames).toFixed(2) : 0
+            }
+        });
+    } else {
+        res.status(400).json({ "Okay": false, "Reason": "User does not exist!" });
+    }
+})
+
 export { router };
