@@ -119,20 +119,20 @@ Die Anforderungen an das zu entwickelnde System definieren alle zu erfüllenden 
 
 #### Funktionale Anforderungen
 
-| Nr. | Akteur | Anforderung | Priorität |
-|----|--------|-------------|-----------|
-| F-01 | Benutzer | Registrierung eines Benutzerkontos | 1 |
-| F-02 | Benutzer | Anmeldung und Abmeldung | 1 |
-| F-03 | Administrator | Verwaltung von Benutzerkonten (anzeigen, sperren, löschen) | 3 |
-| F-04 | Spieler | Anzeige aller aktuell verfügbaren Spieler | 2 |
-| F-05 | Spieler | Senden und Annehmen von Spielanfragen | 2 |
-| F-06 | Spieler | Durchführung eines Tic-Tac-Toe-Spiels in Echtzeit (Mensch vs. Mensch) | 1 |
-| F-07 | Spieler | Durchführung eines Tic-Tac-Toe-Spiels gegen eine AI | 1 |
-| F-08 | Spieler | Auswahl des Schwierigkeitsgrades der AI | 4 |
-| F-09 | System | Serverseitige Prüfung aller Spielzüge | 1 |
-| F-10 | Spieler | Korrekte Spielauswertung (Sieg, Niederlage, Unentschieden, Abbruch) | 1 |
-| F-11 | Spieler | Nutzung eines Live-Chats während eines Spiels | 3 |
-| F-12 | Administrator | Einsicht in System- und Spiel-Logs | 3 |
+| Nr. | Akteur | Anforderung | Priorität | Erreicht |
+|----|--------|-------------|-----------|---------|
+| F-01 | Benutzer | Registrierung eines Benutzerkontos | 1 | Ja |
+| F-02 | Benutzer | Anmeldung und Abmeldung | 1 | Ja |
+| F-03 | Administrator | Verwaltung von Benutzerkonten (anzeigen, sperren, löschen) | 3 | Nein |
+| F-04 | Spieler | Anzeige aller aktuell verfügbaren Spieler | 2 | Nein |
+| F-05 | Spieler | Senden und Annehmen von Spielanfragen | 2 | Nicht dierekt |
+| F-06 | Spieler | Durchführung eines Tic-Tac-Toe-Spiels in Echtzeit (Mensch vs. Mensch) | 1 | Ja |
+| F-07 | Spieler | Durchführung eines Tic-Tac-Toe-Spiels gegen eine AI | 1 | Ja |
+| F-08 | Spieler | Auswahl des Schwierigkeitsgrades der AI | 4 | Nein |
+| F-09 | System | Serverseitige Prüfung aller Spielzüge | 1 | Nicht ganz |
+| F-10 | Spieler | Korrekte Spielauswertung (Sieg, Niederlage, Unentschieden, Abbruch) | 1 | Ja |
+| F-11 | Spieler | Nutzung eines Live-Chats während eines Spiels | 3 | Nein |
+| F-12 | Administrator | Einsicht in System- und Spiel-Logs | 3 | In den Logs |
 
 ---
 
