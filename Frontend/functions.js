@@ -44,7 +44,7 @@ async function login() {
         if (data.Okay) {
             return true;
         } else {
-            setTimeout(relocate(), 20000)
+            setTimeout(relocate, 20000)
             return false;
         }
     } catch (err) {
