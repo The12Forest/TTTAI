@@ -44,11 +44,17 @@ async function login() {
         if (data.Okay) {
             return true;
         } else {
-            window.location.href = "/login";
+            setTimeout(relocate(), 20000)
             return false;
         }
     } catch (err) {
         console.error(err);
         return false;
     }
+}
+
+
+
+function relocate() {
+    window.location.href = "/login";
 }
