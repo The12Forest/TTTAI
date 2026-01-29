@@ -85,6 +85,7 @@ function clicked(e) {
     console.log(`Human played at index: ${index}`);
 
     sendMove(getBoardState());
+    updateMessage(false);
 
     checkWin()
 }

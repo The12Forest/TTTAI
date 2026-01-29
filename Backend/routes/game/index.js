@@ -19,9 +19,10 @@ export function initializeSocket(httpServer) {
         path: "/socket" // Custom path for socket.io
     });
 
-    io.on("connection", (socket) => {
-        console.log(logprefix + "Spieler verbunden:", socket.id);
-
+    io.on("connection", async (socket) => {
+        const { username, password } = socket.handshake.auth;
+        socket.username = username || "Unknown";
+        
         if (waitingPlayer) {
             // Raum erstellen
             const room = `game-${socket.id}-${waitingPlayer.id}`;
@@ -31,12 +32,13 @@ export function initializeSocket(httpServer) {
             // Game State initialisieren
             sessions[room] = {
                 players: [waitingPlayer.id, socket.id],
+                usernames: [waitingPlayer.username, socket.username],
                 board: [0,0,0, 0,0,0, 0,0,0]
             };
 
-            // Start-Event senden
-            io.to(socket.id).emit("startGame", { "room": room, "start": false });
-            io.to(waitingPlayer.id).emit("startGame", { "room": room, "start": true });
+            // Start-Event senden (each player gets the opponent's username)
+            io.to(socket.id).emit("startGame", { "room": room, "start": false, "opponent": waitingPlayer.username });
+            io.to(waitingPlayer.id).emit("startGame", { "room": room, "start": true, "opponent": socket.username });
 
 
             waitingPlayer = null;

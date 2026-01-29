@@ -1,12 +1,25 @@
 let roomId = null;
 let gameDiv = document.querySelector('.site');
 let gameGrid = document.getElementById('cards');
-let start = null
+let start = null;
+let opponentName = "Opponent";
 let socket = io({
-    path: "/socket"
+    path: "/socket",
+    auth: {
+        username: getCookie("username"),
+        password: getCookie("password")
+    }
 });
 let finished = false
 setupListeners();
+
+function updateMessage(yourTurn) {
+    if (yourTurn) {
+        document.querySelector(".message").textContent = "Playing against " + opponentName + " - Your turn!";
+    } else {
+        document.querySelector(".message").textContent = "Playing against " + opponentName + " - Wait for their move.";
+    }
+}
 
 function playAgain() {
     document.getElementById("banner").classList.remove("show");
@@ -17,7 +30,11 @@ function playAgain() {
     socket.disconnect();
     socket = null;
     socket = io({
-        path: "/socket"
+        path: "/socket",
+        auth: {
+            username: getCookie("username"),
+            password: getCookie("password")
+        }
     });
 
     console.log("Socket initialized");
@@ -40,16 +57,18 @@ function setupListeners() {
         gameGrid.classList.add("show");
     
         console.log("New Room ID: " + arg.room)
+        console.log("Opponent: " + arg.opponent)
         roomId = arg.room;
+        opponentName = arg.opponent;
         start = arg.start
         if (!start) {
-            document.querySelector(".message").textContent = "Wait for the oponenet to make there first move."
             isOponentThinking = true
             xturn = false;
+            updateMessage(false);
         } else {
-            document.querySelector(".message").textContent = "You can make the first Move!"
             isOponentThinking = false;
             xturn = true;
+            updateMessage(true);
         }
     });
     
@@ -59,6 +78,7 @@ function setupListeners() {
         console.log("Board updated:", arg.board);
         // Update the game board with received data
         setBoardFromArray(arg.board);
+        updateMessage(true);
         checkWin()
     });
     

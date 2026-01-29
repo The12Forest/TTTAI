@@ -1,0 +1,57 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "BLJ Abschluss",
+  "steps": [
+    {
+      "file": "init.js",
+      "description": "Here are the Backend Routes",
+      "line": 59
+    },
+    {
+      "file": "init.js",
+      "description": "Here are the the WebPages listed.",
+      "line": 47
+    },
+    {
+      "file": "Frontend/functions.js",
+      "description": "Here i created a couple of Functions to make the Live of further Pages easyer",
+      "line": 2
+    },
+    {
+      "file": "Frontend/Icons/icons.json",
+      "description": "The Images for the PWA",
+      "line": 1
+    },
+    {
+      "file": "manifest.json",
+      "description": "Manifest for the PWA accessable under /manifest.json\n",
+      "line": 1
+    },
+    {
+      "file": "example.config.json",
+      "description": "Example conf for the Serfer",
+      "line": 1
+    },
+    {
+      "file": "cert/cert.pem",
+      "description": "My website Cert for HTTPS",
+      "line": 1
+    },
+    {
+      "file": "Backend/routes/ai/index.js",
+      "description": "The forntend gets the AI Move form here witch then calles the Python Backend where the actual Tensorflow model is running",
+      "line": 25
+    },
+    {
+      "file": "Backend/AI/AI-Server.py",
+      "description": "Speaking of witch, this is the Python backend",
+      "line": 12
+    },
+    {
+      "file": "Backend/AI/AI-Server.py",
+      "description": " THis is the End of the Presentation. Now there folows a live performance",
+      "line": 13
+    }
+  ],
+  "ref": "main"
+}
