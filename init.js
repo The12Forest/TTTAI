@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const baseurl = "http://127.0.0.1";
 
 //Config Laden
-const conf = JSON.parse(fs.readFileSync("./config.json"));
+const conf = JSON.parse(fs.promises.readFileSync("./config.json"));
 
 //Router Laden
 import { router as userRouter } from "./Backend/routes/user/index.js";
