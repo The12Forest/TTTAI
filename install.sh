@@ -31,5 +31,5 @@ python3 -m venv .venv
 source /venv/bin/activate
 pip install fastapi numpy tensorflow
 
-echo "If you dont see any errors it all good."
+echo "If you dont see any errors its all good."
 echo "Else ask ChatGPT to assist you."
