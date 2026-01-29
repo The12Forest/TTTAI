@@ -40,6 +40,10 @@ app.get("/manifest.json", (req, res) => {
   res.sendFile(__dirname + "/manifest.json");
 });
 
+app.get("/functions.js", (req, res) => {
+  res.sendFile(__dirname + "/Frontend/functions.js");
+});
+
 // Foldermapings
 app.use("/", express.static("./Frontend/AIvsHuman"));
 app.use("/login", express.static("./Frontend/login"));

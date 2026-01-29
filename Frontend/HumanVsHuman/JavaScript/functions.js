@@ -1,10 +1,3 @@
-function getCookie(name) {
-    return document.cookie
-        .split("; ")
-        .find(row => row.startsWith(name + "="))
-        ?.split("=")[1];
-}
-
 // Check if a player has won
 function checkWin() {
     if (start) {
@@ -48,17 +41,6 @@ function checkWin() {
         finished = true
         return;
     }
-}
-
-// Check if a player has won
-function checkPlayer(player) {
-    for (const line of WIN_LINES) {
-        if (line.every(i => getCell(i).textContent === player)) {
-            console.log(player + " wins!");
-            return true;
-        }
-    }
-    return false;
 }
 
 function send_history(hasWon) {

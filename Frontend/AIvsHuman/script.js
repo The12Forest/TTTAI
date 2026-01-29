@@ -226,13 +226,6 @@ function send_history(hasWone) {
     fetch("/api/points/countAI/" + username + "/" + hasWoneString)
 }
 
-function getCookie(name) {
-    return document.cookie
-        .split("; ")
-        .find(row => row.startsWith(name + "="))
-        ?.split("=")[1];
-}
-
 window.addEventListener("unload", () => {
     if (finished) return;
 
