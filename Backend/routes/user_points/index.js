@@ -24,6 +24,7 @@ router.use("/load", (req, res) => {
 // Points format: [[gamesAI, winsAI], [gamesHuman, winsHuman]]
 router.use("/add/account/:username", (req, res) => {
     let username = req.params.username
+    console.log(logprefix + JSON.stringify(users))
     if (users.indexOf(username) === -1) {
         users.push(username)
         points.push([[0, 0], [0, 0]])
