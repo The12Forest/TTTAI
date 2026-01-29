@@ -178,9 +178,6 @@ body {
     width: 150px;
     height: 150px;
     margin: 20px auto;
-    background-color: var(--primary-bg);
-    border-radius: 8px;
-    overflow: hidden;
 }
 
 .mini-cell {
@@ -190,20 +187,20 @@ body {
     font-size: 28px;
     font-weight: bold;
     color: white;
-    background-color: var(--primary-bg);
+    font-family: Arial, sans-serif;
 }
 
-/* Right border on columns 1 and 2 (cells 1,4,7 and 2,5,8) */
+/* Right border on columns 1 and 2 */
 .mini-cell:nth-child(1),
-.mini-cell:nth-child(4),
-.mini-cell:nth-child(7),
 .mini-cell:nth-child(2),
+.mini-cell:nth-child(4),
 .mini-cell:nth-child(5),
+.mini-cell:nth-child(7),
 .mini-cell:nth-child(8) {
     border-right: 2px solid var(--border-color);
 }
 
-/* Bottom border on rows 1 and 2 (cells 1,2,3 and 4,5,6) */
+/* Bottom border on rows 1 and 2 */
 .mini-cell:nth-child(1),
 .mini-cell:nth-child(2),
 .mini-cell:nth-child(3),
