@@ -33,7 +33,7 @@ async function sha256(message) {
 async function login() {
     try {
         const res = await fetch(
-            "/api/login/" +
+            "/api/user/login/" +
             encodeURIComponent(getCookie("username")) +
             "/" +
             encodeURIComponent(getCookie("passwd"))
