@@ -24,8 +24,7 @@ router.use("/load", (req, res) => {
 // Points format: [[gamesAI, winsAI], [gamesHuman, winsHuman]]
 router.use("/add/account/:username", (req, res) => {
     let username = req.params.username
-    console.log(logprefix + JSON.stringify(users))
-    if (users.indexOf(username) === -1) {
+    if (users.indexOf(username) == -1) {
         users.push(username)
         points.push([[0, 0], [0, 0]])
         console.log(logprefix + "Account added: " + username);
@@ -52,6 +51,7 @@ router.use("/remove/account/:username", (req, res) => {
 
 router.use("/countAI/:user/:wone", async (req, res) => {
     let userID = users.indexOf(req.params.user)
+    console.log(logprefix + JSON.stringify(users))
     if (userID !== -1) {
         points[userID][0][0]++;  // gamesAI
         if(req.params.wone == 1){
