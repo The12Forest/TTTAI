@@ -15,7 +15,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
     let hashPassword = await sha256(username + "||" + password)
     
-    fetch(baseurl + "/user/login/" + username + "/" + hashPassword, {})
+    fetch(baseurl + "/user/login/" + encodeURIComponent(username) + "/" + encodeURIComponent(hashPassword), {})
         .then((response) => response.json())
         .then((json) => {
             if (json.Okay) {

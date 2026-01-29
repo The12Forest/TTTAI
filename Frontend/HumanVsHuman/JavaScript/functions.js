@@ -46,13 +46,13 @@ function checkWin() {
 function send_history(hasWon) {
     let hasWoneString
     if (hasWon) {hasWoneString = 1} else {hasWoneString = 0}
-    fetch("/api/points/countHuman/" + username + "/" + hasWoneString)
+    fetch("/api/points/countHuman/" + encodeURIComponent(username) + "/" + hasWoneString)
 }
 
 window.addEventListener("unload", () => {
     if (finished) return;
 
-    const url = `/api/points/countHuman/${username}/0`;
+    const url = `/api/points/countHuman/${encodeURIComponent(username)}/0`;
     navigator.sendBeacon(url);
 });
   

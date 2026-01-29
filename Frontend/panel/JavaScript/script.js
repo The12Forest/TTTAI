@@ -3,3 +3,7 @@ document.getElementById("username").innerText = capitalizeFirstLetter(username);
 if (!username) {
     window.location.href = "/login";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    login()
+})

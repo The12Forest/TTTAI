@@ -29,3 +29,26 @@ async function sha256(message) {
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     return hashHex;
 }
+
+async function login() {
+    try {
+        const res = await fetch(
+            "/api/login/" +
+            encodeURIComponent(getCookie("username")) +
+            "/" +
+            encodeURIComponent(getCookie("passwd"))
+        );
+
+        const data = await res.json();
+
+        if (data.Okay) {
+            return true;
+        } else {
+            window.location.href = "/login";
+            return false;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}

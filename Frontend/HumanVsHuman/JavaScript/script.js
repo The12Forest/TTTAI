@@ -28,10 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location = "/panel";
     });
 
-    
-    if (!username) {
-        window.location.href = "/login";
-    }
+    login()
 });
 
 // Get board state as array [-1 for O, 1 for X, 0 for empty]

@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     
-    if (!username) {
-        window.location.href = "/login";
-    }
+    login()
 
 });
 
@@ -223,12 +221,12 @@ function send_play_history() {
 function send_history(hasWone) {
     let hasWoneString
     if (hasWone) { hasWoneString = 1 } else { hasWoneString = 0 }
-    fetch("/api/points/countAI/" + username + "/" + hasWoneString)
+    fetch("/api/points/countAI/" + encodeURIComponent(username) + "/" + hasWoneString)
 }
 
 window.addEventListener("unload", () => {
     if (finished) return;
 
-    const url = `/api/points/countAI/${username}/0`;
+    const url = `/api/points/countAI/${encodeURIComponent(username)}/0`;
     navigator.sendBeacon(url);
 });
